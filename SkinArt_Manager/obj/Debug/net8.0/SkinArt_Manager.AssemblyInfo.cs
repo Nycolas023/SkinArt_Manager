@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SkinArt_Manager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c345de84f349507d686a1a11fa8afd51ba6d24e")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f9f11a17b9f3114762019d02c90c0db1ed0d776")]
+>>>>>>> main
 [assembly: System.Reflection.AssemblyProductAttribute("SkinArt_Manager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SkinArt_Manager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
