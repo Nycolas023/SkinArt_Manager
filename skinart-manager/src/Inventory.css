@@ -1,0 +1,85 @@
+.inventory-container {
+  padding: 20px;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.inventory-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.inventory-table th {
+  background-color: #f5f5f5;
+}
+
+.low-stock {
+  background-color: #fff8e6;
+}
+
+.badge-warning {
+  background-color: #ffc107;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #333;
+}
+
+.badge-success {
+  background-color: #28a745;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: white;
+}
+
+.btn-edit {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .inventory-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .inventory-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .inventory-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

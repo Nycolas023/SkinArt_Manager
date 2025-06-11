@@ -1,0 +1,156 @@
+.scheduling {
+  padding: 20px 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.filters .form-control {
+  min-width: 200px;
+}
+
+.view-options {
+  display: flex;
+  gap: 5px;
+}
+
+.calendar-container {
+  padding: 20px;
+}
+
+/* Estilos para o calendário */
+.rbc-calendar {
+  min-height: 600px;
+}
+
+.rbc-event {
+  padding: 2px 5px;
+  font-size: 12px;
+}
+
+.rbc-toolbar button {
+  color: var(--dark-color);
+  border: 1px solid #ddd;
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.rbc-time-header {
+  background-color: #f8f9fa;
+}
+
+.rbc-time-content {
+  border-top: 1px solid #ddd;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h4 {
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.right-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+  }
+  
+  .filters {
+    flex-direction: column;
+  }
+  
+  .filters .form-control {
+    width: 100%;
+  }
+  
+  .modal {
+    max-width: 95%;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .left-actions, .right-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
