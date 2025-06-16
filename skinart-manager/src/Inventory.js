@@ -3,9 +3,14 @@ import './Inventory.css';
 
 function Inventory() {
   const [inventory, setInventory] = useState([
-    { id: 1, name: 'Tinta Preta', quantity: 2, minStock: 3 },
     { id: 2, name: 'Agulhas #12', quantity: 20, minStock: 10 },
-    { id: 3, name: 'Luvas Desc.', quantity: 8, minStock: 5 }
+    { id: 2, name: 'Agulhas #6', quantity: 20, minStock: 10 },
+    { id: 2, name: 'Agulhas #3', quantity: 20, minStock: 10 },
+    { id: 3, name: 'Luvas Desc.', quantity: 8, minStock: 5 },
+    { id: 1, name: 'Tinta Preta', quantity: 2, minStock: 3 },
+    { id: 1, name: 'Tinta Vermelha', quantity: 0, minStock: 3 },
+    { id: 2, name: 'Tinta Azul', quantity: 20, minStock: 10 },
+    { id: 3, name: 'Tinta Amarela', quantity: 8, minStock: 5 }
   ]);
 
   const [showLowStock, setShowLowStock] = useState(false);

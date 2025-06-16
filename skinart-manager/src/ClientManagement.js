@@ -85,13 +85,13 @@ function ClientManagement({ userRole }) {
                     className="btn btn-secondary btn-sm"
                     onClick={() => handleEdit(client)}
                   >
-                    <i className="fas fa-edit"></i>
+                    <i className="fas fa-edit me-2"></i> Editar
                   </button>
                   <button 
-                    className="btn btn-danger btn-sm ml-2"
+                    className="btn btn-danger btn-sm ms-2"
                     onClick={() => handleDelete(client.id)}
                   >
-                    <i className="fas fa-trash"></i>
+                    <i className="fas fa-trash me-2"></i> Excluir
                   </button>
                 </td>
               </tr>
