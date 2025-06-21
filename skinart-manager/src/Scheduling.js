@@ -211,34 +211,39 @@ function Scheduling({ userRole }) {
       </div>
       
       <div className="card calendar-container">
-        <Calendar
-          localizer={localizer}
-          events={filteredEvents}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 700 }}
-          onSelectEvent={handleSelectEvent}
-          onSelectSlot={handleSelectSlot}
-          selectable={userRole !== 'tatuador'}
-          defaultView={view}
-          views={['day', 'week', 'month']}
-          eventPropGetter={eventStyleGetter}
-          messages={{
-            today: 'Hoje',
-            previous: 'Anterior',
-            next: 'Próximo',
-            month: 'Mês',
-            week: 'Semana',
-            day: 'Dia',
-            agenda: 'Agenda',
-            date: 'Data',
-            time: 'Hora',
-            event: 'Evento',
-            noEventsInRange: 'Nenhum agendamento neste período.'
-          }}
-          min={new Date(0, 0, 0, 9, 0, 0)}  // Início às 9h
-          max={new Date(0, 0, 0, 22, 0, 0)}  // Fim às 22h
-        />
+<Calendar
+  localizer={localizer}
+  events={filteredEvents}
+  startAccessor="start"
+  endAccessor="end"
+  style={{ height: 700 }}
+  onSelectEvent={handleSelectEvent}
+  onSelectSlot={handleSelectSlot}
+  selectable={userRole !== 'tatuador'}
+  view={view}  // Alterado de defaultView para view
+  onView={view => setView(view)}  // Adicionado para controlar mudanças de visualização
+  views={{
+    day: true,
+    week: true,
+    month: true
+  }}
+  eventPropGetter={eventStyleGetter}
+  messages={{
+    today: 'Hoje',
+    previous: 'Anterior',
+    next: 'Próximo',
+    month: 'Mês',
+    week: 'Semana',
+    day: 'Dia',
+    agenda: 'Agenda',
+    date: 'Data',
+    time: 'Hora',
+    event: 'Evento',
+    noEventsInRange: 'Nenhum agendamento neste período.'
+  }}
+  min={new Date(0, 0, 0, 9, 0, 0)}
+  max={new Date(0, 0, 0, 22, 0, 0)}
+/>
       </div>
       
       {showModal && (
