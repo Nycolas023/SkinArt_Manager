@@ -14,7 +14,7 @@ namespace SkinArt_Manager.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, usuario.Login)
+                    new Claim(ClaimTypes.Name, usuario.LOGIN_USUARIO)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(

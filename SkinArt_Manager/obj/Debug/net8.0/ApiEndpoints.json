@@ -79,5 +79,25 @@
         "StatusCode": 401
       }
     ]
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "GetUsuarioAsync",
+    "RelativePath": "api/Usuario",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "SkinArt_Manager.Models.Usuario",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

@@ -3,16 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\controllers\\exemplocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\controllers\\exemplocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\data\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\data\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\controllers\\protectedcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\controllers\\protectedcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\services\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\services\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\skinart_db.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
+      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\skinart_db.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|c:\\users\\a40235291846\\source\\repos\\skinart_manager\\skinart_manager\\skinart_db.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
+      "RelativeMoniker": "D:0:0:{136501F8-4F80-444F-A463-8242DEE0A72C}|SkinArt_Manager\\SkinArt_Manager.csproj|solutionrelative:skinart_manager\\skinart_db.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +46,109 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ExemploController.cs",
-              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Controllers\\ExemploController.cs",
-              "RelativeDocumentMoniker": "SkinArt_Manager\\Controllers\\ExemploController.cs",
-              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Controllers\\ExemploController.cs",
-              "RelativeToolTip": "SkinArt_Manager\\Controllers\\ExemploController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAfAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "ProtectedController.cs",
+              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Controllers\\ProtectedController.cs",
+              "RelativeDocumentMoniker": "SkinArt_Manager\\Controllers\\ProtectedController.cs",
+              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Controllers\\ProtectedController.cs",
+              "RelativeToolTip": "SkinArt_Manager\\Controllers\\ProtectedController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAEwBQAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T18:15:49.853Z",
+              "WhenOpened": "2025-06-24T18:30:16.83Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UsuarioService.cs",
-              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Services\\UsuarioService.cs",
-              "RelativeDocumentMoniker": "SkinArt_Manager\\Services\\UsuarioService.cs",
-              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Services\\UsuarioService.cs",
-              "RelativeToolTip": "SkinArt_Manager\\Services\\UsuarioService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T18:15:06.751Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "TokenService.cs",
               "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Services\\TokenService.cs",
               "RelativeDocumentMoniker": "SkinArt_Manager\\Services\\TokenService.cs",
               "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Services\\TokenService.cs",
               "RelativeToolTip": "SkinArt_Manager\\Services\\TokenService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T17:16:20.216Z",
+              "WhenOpened": "2025-06-24T18:30:00.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "SkinArt_Manager\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "SkinArt_Manager\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T18:29:51.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "SkinArt_Manager\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Models\\Usuario.cs",
+              "RelativeToolTip": "SkinArt_Manager\\Models\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAIAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T18:08:34.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UsuarioController.cs",
+              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Controllers\\UsuarioController.cs",
+              "RelativeDocumentMoniker": "SkinArt_Manager\\Controllers\\UsuarioController.cs",
+              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Controllers\\UsuarioController.cs",
+              "RelativeToolTip": "SkinArt_Manager\\Controllers\\UsuarioController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T18:06:33.975Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsuarioRepository.cs",
+              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Data\\UsuarioRepository.cs",
+              "RelativeDocumentMoniker": "SkinArt_Manager\\Data\\UsuarioRepository.cs",
+              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\Data\\UsuarioRepository.cs",
+              "RelativeToolTip": "SkinArt_Manager\\Data\\UsuarioRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T17:49:23.118Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SkinArt_DB.sql ",
+              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_DB.sql",
+              "RelativeDocumentMoniker": "SkinArt_Manager\\SkinArt_DB.sql",
+              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_DB.sql",
+              "RelativeToolTip": "SkinArt_Manager\\SkinArt_DB.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-06-24T14:24:30.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\appsettings.json",
+              "RelativeDocumentMoniker": "SkinArt_Manager\\appsettings.json",
+              "ToolTip": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\appsettings.json",
+              "RelativeToolTip": "SkinArt_Manager\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-24T14:16:05.48Z",
               "EditorCaption": ""
             }
           ]

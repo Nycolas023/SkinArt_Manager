@@ -11,7 +11,7 @@ public class AuthController : ControllerBase
     public IActionResult Login([FromBody] Usuario login)
     {
         // Usuário fixo para testes
-        if (login.Login == "admin" && login.Password == "123456")
+        if (login.LOGIN_USUARIO == "admin" && login.SENHA_USUARIO == "123456")
         {
             var token = TokenService.GenerateToken(login);
             return Ok(new { token });

@@ -115,6 +115,35 @@
           }
         }
       }
+    },
+    "/api/Usuario": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -126,11 +155,23 @@
       "Usuario": {
         "type": "object",
         "properties": {
-          "login": {
+          "iD_USUARIO": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nomE_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "password": {
+          "sobrenomE_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "logiN_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "senhA_USUARIO": {
             "type": "string",
             "nullable": true
           }
@@ -141,7 +182,7 @@
     "securitySchemes": {
       "Bearer": {
         "type": "http",
-        "description": "Insira o token JWT aqui.",
+        "description": "",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }

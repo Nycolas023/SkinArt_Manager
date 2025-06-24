@@ -1,12 +1,16 @@
-using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.OpenApi.Models;
 using SkinArt_Manager;
+using SkinArt_Manager.Data;
+using SkinArt_Manager.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddSingleton<UsuarioRepository>();
+builder.Services.AddSingleton<UsuarioService>();
 
 // Autenticação JWT
 var key = Encoding.ASCII.GetBytes(Configuration.PrivateKey);
