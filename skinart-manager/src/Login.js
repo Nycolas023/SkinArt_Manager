@@ -130,14 +130,6 @@ function Login({ onLogin }) {
           >
             Tatuador
           </button>
-          
-          <button
-            type="button"
-            className="test-button reception"
-            onClick={() => handleTestLogin(testUsers[2])}
-          >
-            Recepção
-          </button>
         </div>
 
         <div className="login-footer">
