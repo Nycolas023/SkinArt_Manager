@@ -8,9 +8,15 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+
 builder.Services.AddSingleton<UsuarioRepository>();
 builder.Services.AddSingleton<UsuarioService>();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 
 // Autenticação JWT
 var key = Encoding.ASCII.GetBytes(Configuration.PrivateKey);

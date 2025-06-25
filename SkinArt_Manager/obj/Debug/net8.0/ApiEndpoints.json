@@ -8,8 +8,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "login",
-        "Type": "SkinArt_Manager.Models.Usuario",
+        "Name": "credenciais",
+        "Type": "SkinArt_Manager.DTOs.LoginRequest",
         "IsRequired": true
       }
     ],
@@ -33,32 +33,27 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 401
+      }
+    ]
   },
   {
     "ContainingType": "SkinArt_Manager.Controllers.ExemploController",
     "Method": "Protegido",
     "RelativePath": "api/Exemplo/protegido",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SkinArt_Manager.Controllers.ExemploController",
-    "Method": "Publico",
-    "RelativePath": "api/Exemplo/publico",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ProtectedController",
-    "Method": "GetProtectedData",
-    "RelativePath": "api/Protected/data",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -79,6 +74,16 @@
         "StatusCode": 401
       }
     ]
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.ExemploController",
+    "Method": "Publico",
+    "RelativePath": "api/Exemplo/publico",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",

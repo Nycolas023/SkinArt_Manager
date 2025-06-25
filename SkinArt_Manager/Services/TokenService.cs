@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using SkinArt_Manager.Models;
+using SkinArt_Manager.DTOs;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -8,7 +8,7 @@ namespace SkinArt_Manager.Services
 {
     public class TokenService
     {
-        public static string? GenerateToken(Usuario usuario)
+        public static string? GenerateToken(LoginRequest usuario)
         {
             var key = Encoding.ASCII.GetBytes(Configuration.PrivateKey);
             var tokenDescriptor = new SecurityTokenDescriptor

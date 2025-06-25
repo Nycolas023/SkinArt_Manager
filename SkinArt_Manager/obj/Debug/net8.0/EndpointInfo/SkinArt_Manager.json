@@ -14,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             }
           }
@@ -68,6 +68,26 @@
         "responses": {
           "200": {
             "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -76,18 +96,6 @@
       "get": {
         "tags": [
           "Exemplo"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/Protected/data": {
-      "get": {
-        "tags": [
-          "Protected"
         ],
         "responses": {
           "200": {
@@ -148,6 +156,20 @@
   },
   "components": {
     "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "LOGIN_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "SENHA_USUARIO": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ProblemDetails": {
         "type": "object",
         "additionalProperties": { }
@@ -155,25 +177,44 @@
       "Usuario": {
         "type": "object",
         "properties": {
-          "iD_USUARIO": {
+          "ID_USUARIO": {
             "type": "integer",
             "format": "int32"
           },
-          "nomE_USUARIO": {
+          "NOME_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "sobrenomE_USUARIO": {
+          "SOBRENOME_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "logiN_USUARIO": {
+          "DATA_NASC_USUARIO": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "CPF_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "senhA_USUARIO": {
+          "RG_USUARIO": {
             "type": "string",
             "nullable": true
+          },
+          "LOGIN_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "SENHA_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "ALERGIA_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "AUTORIZACAO_MENOR_USUARIO": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

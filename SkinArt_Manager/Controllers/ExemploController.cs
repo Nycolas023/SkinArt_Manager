@@ -17,6 +17,8 @@ namespace SkinArt_Manager.Controllers
         // Requer autenticação (qualquer usuário logado)
         [HttpGet("protegido")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Protegido()
         {
             return Ok(new { message = "Acesso protegido - usuário autenticado" });
@@ -25,6 +27,8 @@ namespace SkinArt_Manager.Controllers
         // Requer role específica
         [HttpGet("admin")]
         [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Admin()
         {
             return Ok(new { message = "Acesso restrito a administradores" });

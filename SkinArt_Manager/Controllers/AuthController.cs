@@ -1,19 +1,29 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SkinArt_Manager.Models;
+using SkinArt_Manager.DTOs;
 using SkinArt_Manager.Services;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
-    [HttpPost("login")]
-    public IActionResult Login([FromBody] Usuario login)
+    private readonly UsuarioService _usuarioService;
+
+    public AuthController(UsuarioService usuarioService)
     {
+        _usuarioService = usuarioService;
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest credenciais)
+    {
+        var usuario = await _usuarioService.GetLogin(credenciais);
+
         // Usuário fixo para testes
-        if (login.LOGIN_USUARIO == "admin" && login.SENHA_USUARIO == "123456")
+        if (usuario != null && credenciais.LOGIN_USUARIO == usuario.LOGIN_USUARIO && credenciais.SENHA_USUARIO == usuario.SENHA_USUARIO)
         {
-            var token = TokenService.GenerateToken(login);
+            var token = TokenService.GenerateToken(credenciais);
             return Ok(new { token });
         }
 
