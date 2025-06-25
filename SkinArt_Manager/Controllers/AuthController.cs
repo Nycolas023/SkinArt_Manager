@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
         var usuario = await _usuarioService.GetLogin(credenciais);
 
         // Usuário fixo para testes
-        if (usuario != null && credenciais.LOGIN_USUARIO == usuario.LOGIN_USUARIO && credenciais.SENHA_USUARIO == usuario.SENHA_USUARIO)
+        if (usuario != null && credenciais.LOGIN_USUARIO.ToLower() == usuario.LOGIN_USUARIO.ToLower() && credenciais.SENHA_USUARIO == usuario.SENHA_USUARIO)
         {
             var token = TokenService.GenerateToken(credenciais);
             return Ok(new { token });
