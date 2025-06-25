@@ -14,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/LoginRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/LoginRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/LoginRequestDTO"
               }
             }
           }
@@ -48,107 +48,24 @@
         }
       }
     },
-    "/api/Exemplo/publico": {
-      "get": {
-        "tags": [
-          "Exemplo"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/Exemplo/protegido": {
-      "get": {
-        "tags": [
-          "Exemplo"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Exemplo/admin": {
-      "get": {
-        "tags": [
-          "Exemplo"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Usuario": {
+    "/api/Usuario/RetornaFuncionalidadesUsuario": {
       "get": {
         "tags": [
           "Usuario"
         ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }
@@ -156,7 +73,7 @@
   },
   "components": {
     "schemas": {
-      "LoginRequest": {
+      "LoginRequestDTO": {
         "type": "object",
         "properties": {
           "LOGIN_USUARIO": {
@@ -166,55 +83,6 @@
           "SENHA_USUARIO": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ProblemDetails": {
-        "type": "object",
-        "additionalProperties": { }
-      },
-      "Usuario": {
-        "type": "object",
-        "properties": {
-          "ID_USUARIO": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "NOME_USUARIO": {
-            "type": "string",
-            "nullable": true
-          },
-          "SOBRENOME_USUARIO": {
-            "type": "string",
-            "nullable": true
-          },
-          "DATA_NASC_USUARIO": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "CPF_USUARIO": {
-            "type": "string",
-            "nullable": true
-          },
-          "RG_USUARIO": {
-            "type": "string",
-            "nullable": true
-          },
-          "LOGIN_USUARIO": {
-            "type": "string",
-            "nullable": true
-          },
-          "SENHA_USUARIO": {
-            "type": "string",
-            "nullable": true
-          },
-          "ALERGIA_USUARIO": {
-            "type": "string",
-            "nullable": true
-          },
-          "AUTORIZACAO_MENOR_USUARIO": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false

@@ -16,19 +16,21 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest credenciais)
+    public async Task<IActionResult> Login([FromBody] LoginRequestDTO credenciais)
     {
         var usuario = await _usuarioService.GetLogin(credenciais);
 
-        // Usuário fixo para testes
-        if (usuario != null && credenciais.LOGIN_USUARIO.ToLower() == usuario.LOGIN_USUARIO.ToLower() && credenciais.SENHA_USUARIO == usuario.SENHA_USUARIO)
+        if (usuario != null &&
+            credenciais.LOGIN_USUARIO.Equals(usuario.Usuario.LOGIN_USUARIO, StringComparison.OrdinalIgnoreCase) &&
+            credenciais.SENHA_USUARIO == usuario.Usuario.SENHA_USUARIO)
         {
-            var token = TokenService.GenerateToken(credenciais);
-            return Ok(new { token });
+            usuario.Token = TokenService.GenerateToken(usuario); // Armazena direto no DTO
+            return Ok(usuario);
         }
 
         return Unauthorized("Usuário ou senha inválidos");
     }
+
 
     [HttpGet("protegido")]
     [Authorize]

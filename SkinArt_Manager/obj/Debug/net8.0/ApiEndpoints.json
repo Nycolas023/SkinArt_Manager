@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "credenciais",
-        "Type": "SkinArt_Manager.DTOs.LoginRequest",
+        "Type": "SkinArt_Manager.DTOs.LoginRequestDTO",
         "IsRequired": true
       }
     ],
@@ -26,83 +26,19 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SkinArt_Manager.Controllers.ExemploController",
-    "Method": "Admin",
-    "RelativePath": "api/Exemplo/admin",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 401
-      }
-    ]
-  },
-  {
-    "ContainingType": "SkinArt_Manager.Controllers.ExemploController",
-    "Method": "Protegido",
-    "RelativePath": "api/Exemplo/protegido",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 401
-      }
-    ]
-  },
-  {
-    "ContainingType": "SkinArt_Manager.Controllers.ExemploController",
-    "Method": "Publico",
-    "RelativePath": "api/Exemplo/publico",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
-    "Method": "GetUsuarioAsync",
-    "RelativePath": "api/Usuario",
+    "Method": "Get",
+    "RelativePath": "api/Usuario/RetornaFuncionalidadesUsuario",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
+    "Parameters": [
       {
-        "Type": "SkinArt_Manager.Models.Usuario",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
-    ]
+    ],
+    "ReturnTypes": []
   }
 ]

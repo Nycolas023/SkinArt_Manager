@@ -18,9 +18,14 @@ namespace SkinArt_Manager.Services
             return await repository.GetUsuario(id);
         }
 
-        public async Task<LoginRequest?> GetLogin(LoginRequest credenciais)
+        public async Task<LoginResponseDTO?> GetLogin(LoginRequestDTO credenciais)
         {
             return await repository.GetCredenciaisUsuario(credenciais);
+        }
+
+        public async Task<List<RetornaFuncionalidadeDTO>> GetFuncionalidades(int id)
+        {
+            return await repository.GetFuncionalidades(id);
         }
     }
 }

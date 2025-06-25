@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SkinArt_Manager.DTOs;
 using SkinArt_Manager.Models;
 using SkinArt_Manager.Services;
 
@@ -15,10 +17,21 @@ namespace SkinArt_Manager.Controllers
             this.usuarioService = usuarioService;
         }
 
-        [HttpGet]
-        public async Task<Usuario?> GetUsuarioAsync()
+        //[HttpGet]
+        //public async Task<Usuario?> GetUsuarioAsync()
+        //{
+        //    return await usuarioService.UsuarioRetornaUsuarioTeste(1);
+        //}
+
+        [Authorize]
+        [HttpGet("RetornaFuncionalidadesUsuario")]
+        public async Task<IActionResult> Get(int id)
         {
-            return await usuarioService.UsuarioRetornaUsuarioTeste(1);
+            var response = await usuarioService.GetFuncionalidades(id);
+
+            if (response == null || response.Count == 0)
+                return NotFound();
+            return Ok(response);
         }
     }
 }
