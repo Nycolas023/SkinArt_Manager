@@ -3,17 +3,17 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 
 // Componentes
-import Login from '../src/Login';
-import Dashboard from '../src/Dashboard';
-import ClientManagement from '../src/ClientManagement';
-import Scheduling from '../src/Scheduling';
-import Financial from '../src/Financial';
-import Portfolio from '../src/Portfolio';
-import Inventory from '../src/Inventory';
-import ServiceOrders from '../src/ServiceOrders';
-import UserManagement from '../src/UserManagement';
-import Sidebar from '../src/Sidebar';
-import Header from '../src/Header';
+import Login from './pages/Auth/Login';
+import Dashboard from './pages/Dashboard/Dashboard';
+import ClientManagement from './pages/Clients/ClientManagement';
+import Scheduling from './pages/Scheduling/Scheduling';
+import Financial from './pages/Financial/Financial';
+import Portfolio from './pages/Portfolio/Portfolio';
+import Inventory from './pages/Inventory/Inventory';
+import ServiceOrders from './pages/ServiceOrders/ServiceOrders';
+import UserManagement from './pages/Users/UserManagement';
+import Sidebar from './components/Sidebar/Sidebar';
+import Header from './components/Header/Header';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
