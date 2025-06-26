@@ -1,7 +1,8 @@
-﻿using SkinArt_Manager.Models;
-using Dapper;
+﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using SkinArt_Manager.DTOs;
+using SkinArt_Manager.Models;
+using System.Data;
 
 namespace SkinArt_Manager.Data
 {
@@ -26,35 +27,37 @@ namespace SkinArt_Manager.Data
                 SENHA = credenciais.SENHA_USUARIO
             };
 
-            var resultado = await conn.QueryFirstOrDefaultAsync(
+            var resultados = await conn.QueryAsync<dynamic>(
                 "STP_LOGIN",
                 parametros,
-                commandType: System.Data.CommandType.StoredProcedure
+                commandType: CommandType.StoredProcedure
             );
 
-            if (resultado == null) return null;
+            if (!resultados.Any()) return null;
 
-            //PAREI AQUI ESTA COM BUG
+            // Pega os dados do primeiro resultado para montar o usuário
+            var primeiro = resultados.First();
+
             var response = new LoginResponseDTO
             {
                 Usuario = new Usuario
                 {
-                    ID_USUARIO = resultado.ID_USUARIO,
-                    NOME_USUARIO = resultado.NOME_USUARIO,
-                    SOBRENOME_USUARIO = resultado.SOBRENOME_USUARIO,
-                    DATA_NASC_USUARIO = resultado.DATA_NASC_USUARIO,
-                    CPF_USUARIO = resultado.CPF_USUARIO,
-                    RG_USUARIO = resultado.RG_USUARIO,
-                    LOGIN_USUARIO = resultado.LOGIN_USUARIO,
-                    SENHA_USUARIO = resultado.SENHA_USUARIO,
-                    ALERGIA_USUARIO = resultado.ALERGIA_USUARIO,
-                    AUTORIZACAO_MENOR_USUARIO = resultado.AUTORIZACAO_MENOR_USUARIO
+                    ID_USUARIO = primeiro.ID_USUARIO,
+                    NOME_USUARIO = primeiro.NOME_USUARIO,
+                    SOBRENOME_USUARIO = primeiro.SOBRENOME_USUARIO,
+                    CPF_USUARIO = primeiro.CPF_USUARIO,
+                    RG_USUARIO = primeiro.RG_USUARIO,
+                    DATA_NASC_USUARIO = primeiro.DATA_NASC_USUARIO,
+                    LOGIN_USUARIO = primeiro.LOGIN_USUARIO,
+                    SENHA_USUARIO = primeiro.SENHA_USUARIO
+                    
                 },
-                NOME_PAPEL = resultado.NOME_PAPEL 
+                Papeis = resultados.Select(r => (string)r.NOME_PAPEL).Distinct().ToList()
             };
 
             return response;
         }
+
 
 
         public async Task<List<RetornaFuncionalidadeDTO>> GetFuncionalidades(int id)

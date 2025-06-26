@@ -12,8 +12,6 @@ namespace SkinArt_Manager.Models
         public string RG_USUARIO { get; set; } = string.Empty;
         public string LOGIN_USUARIO { get; set; } = string.Empty;
         public string SENHA_USUARIO { get; set; } = string.Empty;
-        public string ALERGIA_USUARIO { get; set; } = string.Empty;
-        public bool AUTORIZACAO_MENOR_USUARIO { get; set; }
     }
 
 }

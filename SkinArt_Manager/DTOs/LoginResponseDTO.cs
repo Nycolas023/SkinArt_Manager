@@ -6,7 +6,7 @@ namespace SkinArt_Manager.DTOs
     {
         public string Token { get; set; }
         public Usuario Usuario { get; set; }
-        public string NOME_PAPEL { get; set; }
+        public List<string> Papeis { get; set; }
 
     }
 }

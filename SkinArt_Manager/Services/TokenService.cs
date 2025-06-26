@@ -12,13 +12,16 @@ namespace SkinArt_Manager.Services
         {
             var key = Encoding.ASCII.GetBytes(Configuration.PrivateKey);
 
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, usuario.Usuario.LOGIN_USUARIO)
+            };
+
+            claims.AddRange(usuario.Papeis.Select(papel => new Claim(ClaimTypes.Role, papel)));
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-            new Claim(ClaimTypes.Name, usuario.Usuario.LOGIN_USUARIO),
-            new Claim(ClaimTypes.Role, usuario.NOME_PAPEL) // Papel para [Authorize(Roles="...")]
-        }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
@@ -29,6 +32,7 @@ namespace SkinArt_Manager.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
 
     }
 }
