@@ -17,8 +17,6 @@ namespace SkinArt_Manager.Services
                 new Claim(ClaimTypes.Name, usuario.Usuario.LOGIN_USUARIO)
             };
 
-            claims.AddRange(usuario.Papeis.Select(papel => new Claim(ClaimTypes.Role, papel)));
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),

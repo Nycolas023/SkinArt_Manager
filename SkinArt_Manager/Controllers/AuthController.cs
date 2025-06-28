@@ -15,10 +15,26 @@ public class AuthController : ControllerBase
         _usuarioService = usuarioService;
     }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequestDTO credenciais)
+    [HttpPost("loginAdmin")]
+    public async Task<IActionResult> LoginAdmin([FromBody] LoginRequestDTO credenciais)
     {
-        var usuario = await _usuarioService.GetLogin(credenciais);
+        var usuario = await _usuarioService.GetLoginAdmin(credenciais);
+
+        if (usuario != null &&
+            credenciais.LOGIN_USUARIO.Equals(usuario.Usuario.LOGIN_USUARIO, StringComparison.OrdinalIgnoreCase) &&
+            credenciais.SENHA_USUARIO == usuario.Usuario.SENHA_USUARIO)
+        {
+            usuario.Token = TokenService.GenerateToken(usuario); // Armazena direto no DTO
+            return Ok(usuario);
+        }
+
+        return Unauthorized("Usuário ou senha inválidos");
+    }
+
+    [HttpPost("loginTatuador")]
+    public async Task<IActionResult> LoginTatuador([FromBody] LoginRequestDTO credenciais)
+    {
+        var usuario = await _usuarioService.GetLoginTatuador(credenciais);
 
         if (usuario != null &&
             credenciais.LOGIN_USUARIO.Equals(usuario.Usuario.LOGIN_USUARIO, StringComparison.OrdinalIgnoreCase) &&

@@ -1,8 +1,24 @@
 [
   {
     "ContainingType": "AuthController",
-    "Method": "Login",
-    "RelativePath": "api/Auth/login",
+    "Method": "LoginAdmin",
+    "RelativePath": "api/Auth/loginAdmin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "credenciais",
+        "Type": "SkinArt_Manager.DTOs.LoginRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuthController",
+    "Method": "LoginTatuador",
+    "RelativePath": "api/Auth/loginTatuador",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

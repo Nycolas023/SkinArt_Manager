@@ -17,7 +17,7 @@ namespace SkinArt_Manager.Data
             return await conn.QueryFirstOrDefaultAsync<Usuario>(sql, new { id });
         }
 
-        public async Task<LoginResponseDTO?> GetCredenciaisUsuario(LoginRequestDTO credenciais)
+        public async Task<LoginResponseDTO?> GetCredenciaisUsuarioAdmin(LoginRequestDTO credenciais)
         {
             using var conn = new SqlConnection(_connectionString);
 
@@ -28,7 +28,7 @@ namespace SkinArt_Manager.Data
             };
 
             var resultados = await conn.QueryAsync<dynamic>(
-                "STP_LOGIN",
+                "STP_LOGIN_ADMIN",
                 parametros,
                 commandType: CommandType.StoredProcedure
             );
@@ -52,7 +52,47 @@ namespace SkinArt_Manager.Data
                     SENHA_USUARIO = primeiro.SENHA_USUARIO
                     
                 },
-                Papeis = resultados.Select(r => (string)r.NOME_PAPEL).Distinct().ToList()
+            };
+
+            return response;
+        }
+
+
+        public async Task<LoginResponseDTO?> GetCredenciaisUsuarioTatuador(LoginRequestDTO credenciais)
+        {
+            using var conn = new SqlConnection(_connectionString);
+
+            var parametros = new
+            {
+                LOGIN = credenciais.LOGIN_USUARIO,
+                SENHA = credenciais.SENHA_USUARIO
+            };
+
+            var resultados = await conn.QueryAsync<dynamic>(
+                "STP_LOGIN_TATUADOR",
+                parametros,
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (!resultados.Any()) return null;
+
+            // Pega os dados do primeiro resultado para montar o usuário
+            var primeiro = resultados.First();
+
+            var response = new LoginResponseDTO
+            {
+                Usuario = new Usuario
+                {
+                    ID_USUARIO = primeiro.ID_USUARIO,
+                    NOME_USUARIO = primeiro.NOME_USUARIO,
+                    SOBRENOME_USUARIO = primeiro.SOBRENOME_USUARIO,
+                    CPF_USUARIO = primeiro.CPF_USUARIO,
+                    RG_USUARIO = primeiro.RG_USUARIO,
+                    DATA_NASC_USUARIO = primeiro.DATA_NASC_USUARIO,
+                    LOGIN_USUARIO = primeiro.LOGIN_USUARIO,
+                    SENHA_USUARIO = primeiro.SENHA_USUARIO
+
+                },
             };
 
             return response;
