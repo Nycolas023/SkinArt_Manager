@@ -1,6 +1,6 @@
 ﻿using SkinArt_Manager.Models;
 
-namespace SkinArt_Manager.DTOs
+namespace SkinArt_Manager.DTOs.UsuarioDTO
 {
     public class LoginResponseDTO
     {

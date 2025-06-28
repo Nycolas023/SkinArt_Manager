@@ -2069,23 +2069,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\A40235291846\\.nuget\\packages\\": {},
+    "C:\\Users\\023\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj",
+      "projectUniqueName": "C:\\Users\\023\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj",
       "projectName": "SkinArt_Manager",
-      "projectPath": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj",
-      "packagesPath": "C:\\Users\\A40235291846\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\A40235291846\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager\\obj\\",
+      "projectPath": "C:\\Users\\023\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj",
+      "packagesPath": "C:\\Users\\023\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\023\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\A40235291846\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\023\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2161,13 +2161,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Ocorreu um erro ao obter os dados de vulnerabilidade do pacote: Não é possível carregar o índice de serviço para a origem https://api.nuget.org/v3/index.json."
-    }
-  ]
+  }
 }

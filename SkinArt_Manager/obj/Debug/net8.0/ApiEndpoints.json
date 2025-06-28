@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "credenciais",
-        "Type": "SkinArt_Manager.DTOs.LoginRequestDTO",
+        "Type": "SkinArt_Manager.DTOs.UsuarioDTO.LoginRequestDTO",
         "IsRequired": true
       }
     ],
@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "credenciais",
-        "Type": "SkinArt_Manager.DTOs.LoginRequestDTO",
+        "Type": "SkinArt_Manager.DTOs.UsuarioDTO.LoginRequestDTO",
         "IsRequired": true
       }
     ],
@@ -43,14 +43,98 @@
   },
   {
     "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
-    "Method": "Get",
-    "RelativePath": "api/Usuario/RetornaFuncionalidadesUsuario",
-    "HttpMethod": "GET",
+    "Method": "AtualizaStatusAtivo",
+    "RelativePath": "api/Usuario/AtualizaUsuarioAtivo",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "CriarUsuario",
+    "RelativePath": "api/Usuario/CriaUsuario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "SkinArt_Manager.DTOs.UsuarioDTO.CreateUsuarioDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "DeletaUsuario",
+    "RelativePath": "api/Usuario/DeletaUsuario",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "AtualizaUsuario",
+    "RelativePath": "api/Usuario/EditarUsuario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "SkinArt_Manager.DTOs.UsuarioDTO.AtualizaUsuarioDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "GetUsuarioAsync",
+    "RelativePath": "api/Usuario/RetornaTodosUsuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[SkinArt_Manager.Models.Usuario, SkinArt_Manager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "AtualizaStatusInativo",
+    "RelativePath": "api/Usuario/SairUsuario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
         "Type": "System.Int32",
         "IsRequired": false
       }

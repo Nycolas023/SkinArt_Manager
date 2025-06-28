@@ -9,8 +9,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddSingleton<UsuarioRepository>();
-builder.Services.AddSingleton<UsuarioService>();
+builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<UsuarioService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

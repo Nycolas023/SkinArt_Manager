@@ -1,6 +1,7 @@
 ﻿using SkinArt_Manager.Data;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Models;
+using System.Text;
 
 namespace SkinArt_Manager.Services
 {
@@ -13,9 +14,14 @@ namespace SkinArt_Manager.Services
             this.repository = repository;
         }
 
-        public async Task<Usuario?> UsuarioRetornaUsuarioTeste(int id) 
+        public async Task<Usuario?> CreateUsuario(CreateUsuarioDTO usuario)
         {
-            return await repository.GetUsuario(id);
+            return await repository.CreateUsuario(usuario);
+        }
+
+        public async Task<List<Usuario?>> UsuarioRetornaTodosUsuarios() 
+        {
+            return await repository.GetUsuario();
         }
 
         public async Task<LoginResponseDTO?> GetLoginAdmin(LoginRequestDTO credenciais)
@@ -28,9 +34,19 @@ namespace SkinArt_Manager.Services
             return await repository.GetCredenciaisUsuarioTatuador(credenciais);
         }
 
-        public async Task<List<RetornaFuncionalidadeDTO>> GetFuncionalidades(int id)
+        public async Task<string> SetStatus(AtualizaStatusDTO atualizaStatus)
         {
-            return await repository.GetFuncionalidades(id);
+            return await repository.AtualizaStatus(atualizaStatus);
+        }
+
+        public async Task<string> SetUsuario(AtualizaUsuarioDTO usuario)
+        {
+            return await repository.AtualizaUsuario(usuario);
+        }
+
+        public async Task<string> DeleteUsuario(DeleteUsuarioDTO usuario)
+        {
+            return await repository.DeleteUsuario(usuario);
         }
     }
 }
