@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SkinArt_Manager.DTOs;
 using SkinArt_Manager.Services;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]")]
