@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\luisf\\Source\\Repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj": {}
+    "C:\\Users\\023\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\luisf\\Source\\Repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj": {
+    "C:\\Users\\023\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\luisf\\Source\\Repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj",
+        "projectUniqueName": "C:\\Users\\023\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj",
         "projectName": "SkinArt_Manager",
-        "projectPath": "C:\\Users\\luisf\\Source\\Repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj",
-        "packagesPath": "C:\\Users\\luisf\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\luisf\\Source\\Repos\\SkinArt_Manager\\SkinArt_Manager\\obj\\",
+        "projectPath": "C:\\Users\\023\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\SkinArt_Manager.csproj",
+        "packagesPath": "C:\\Users\\023\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\023\\source\\repos\\SkinArt_Manager\\SkinArt_Manager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\luisf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\023\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -90,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
