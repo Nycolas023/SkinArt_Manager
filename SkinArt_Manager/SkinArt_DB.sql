@@ -253,7 +253,52 @@ BEGIN
 	WHERE ID_USUARIO = @ID_USUARIO;
 END;
 
+CREATE TABLE EstoqueItem (
+    ID_EstoqueItem INT PRIMARY KEY IDENTITY(1,1),
+    Categoria VARCHAR(100) NOT NULL,
+    NomeItem VARCHAR(255) NOT NULL,
+    Quantidade INT NOT NULL,
+    Unidade VARCHAR(50) NOT NULL,
+    UsoPorSessao DECIMAL(10, 2) NULL,
+    EstoqueMinimo INT NOT NULL,
+    DataCriacao DATETIME DEFAULT GETDATE(),
+    DataAtualizacao DATETIME DEFAULT GETDATE()
+);
+GO
 
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Equipamentos', 'Máquina de Tatuagem (Coil)', 2, 'un', NULL, 1);
+
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Equipamentos', 'Máquina de Tatuagem (Rotativa)', 3, 'un', NULL, 1);
+
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Equipamentos', 'Fonte de Alimentação', 1, 'un', NULL, 1); -- Estoque Baixo (se for considerado)
+
+-- Inserindo Agulhas
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Agulhas', 'Agulha Round Liner #3', 50, 'un', 1, 20);
+
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Agulhas', 'Agulha Round Liner #7', 15, 'un', 1, 20); -- Estoque Baixo
+
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Agulhas', 'Agulha Magnum #9', 30, 'un', 1, 10);
+
+-- Inserindo Tintas
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Tintas', 'Tinta Preta (30ml)', 5, 'ml', 2.5, 2);
+
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Tintas', 'Tinta Vermelha (30ml)', 1, 'ml', 2.5, 2); -- Estoque Baixo
+
+-- Inserindo Descartáveis
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Descartáveis', 'Luvas Nitrílicas (Cx 100un)', 10, 'cx', 1, 5);
+
+
+CREATE INDEX IX_EstoqueItem_CategoriaNome ON EstoqueItem (Categoria, NomeItem);
+GO
 
 CREATE PROCEDURE STP_CRIAR_USUARIO
 	@NOME VARCHAR (200),

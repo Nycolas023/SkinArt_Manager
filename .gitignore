@@ -36,3 +36,5 @@ appsettings.Development.local.json  # Ignora versões locais
 ### Sistema ###
 .DS_Store
 Thumbs.db
+/SkinArt_Manager/bin/
+/SkinArt_Manager/obj/
