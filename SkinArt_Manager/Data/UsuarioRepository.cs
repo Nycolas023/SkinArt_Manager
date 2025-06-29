@@ -1,8 +1,9 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.UsuarioDTO; 
 using SkinArt_Manager.Models;
 using System.Data;
+using Microsoft.Extensions.Configuration; 
 
 namespace SkinArt_Manager.Data
 {
@@ -17,6 +18,14 @@ namespace SkinArt_Manager.Data
             return await conn.QueryFirstOrDefaultAsync<Usuario>(sql, new { id });
         }
 
+        public async Task<Usuario?> GetUsuarioById(int id)
+        {
+            using var conn = new SqlConnection(_connectionString);
+            string sql = "SELECT * FROM Usuario WHERE ID_USUARIO = @id";
+            return await conn.QueryFirstOrDefaultAsync<Usuario>(sql, new { id });
+        }
+
+        #region Logins
         public async Task<LoginResponseDTO?> GetCredenciaisUsuarioAdmin(LoginRequestDTO credenciais)
         {
             using var conn = new SqlConnection(_connectionString);
@@ -35,7 +44,6 @@ namespace SkinArt_Manager.Data
 
             if (!resultados.Any()) return null;
 
-            // Pega os dados do primeiro resultado para montar o usuário
             var primeiro = resultados.First();
 
             var response = new LoginResponseDTO
@@ -76,7 +84,6 @@ namespace SkinArt_Manager.Data
 
             if (!resultados.Any()) return null;
 
-            // Pega os dados do primeiro resultado para montar o usuário
             var primeiro = resultados.First();
 
             var response = new LoginResponseDTO
