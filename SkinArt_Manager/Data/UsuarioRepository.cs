@@ -1,11 +1,7 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Data.SqlClient;
-<<<<<<< HEAD
-using SkinArt_Manager.DTOs.UsuarioDTO;
-=======
 using SkinArt_Manager.DTOs;
->>>>>>> parent of 478b68c (comitzaop)
 using SkinArt_Manager.Models;
 using System.Data;
 
