@@ -79,6 +79,238 @@
         }
       }
     },
+    "/api/Estoque": {
+      "get": {
+        "tags": [
+          "Estoque"
+        ],
+        "parameters": [
+          {
+            "name": "categoria",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Estoque"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CriarEstoqueItemDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CriarEstoqueItemDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CriarEstoqueItemDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueItemDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueItemDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueItemDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Estoque/baixo": {
+      "get": {
+        "tags": [
+          "Estoque"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Estoque/{id}": {
+      "get": {
+        "tags": [
+          "Estoque"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueItemDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueItemDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstoqueItemDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Estoque"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtualizarEstoqueItemDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtualizarEstoqueItemDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtualizarEstoqueItemDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Estoque"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Usuario/RetornaFuncionalidadesUsuario": {
       "get": {
         "tags": [
@@ -104,6 +336,118 @@
   },
   "components": {
     "schemas": {
+      "AtualizarEstoqueItemDTO": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Categoria": {
+            "type": "string",
+            "nullable": true
+          },
+          "NomeItem": {
+            "type": "string",
+            "nullable": true
+          },
+          "Quantidade": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Unidade": {
+            "type": "string",
+            "nullable": true
+          },
+          "UsoPorSessao": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "EstoqueMinimo": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CriarEstoqueItemDTO": {
+        "type": "object",
+        "properties": {
+          "Categoria": {
+            "type": "string",
+            "nullable": true
+          },
+          "NomeItem": {
+            "type": "string",
+            "nullable": true
+          },
+          "Quantidade": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Unidade": {
+            "type": "string",
+            "nullable": true
+          },
+          "UsoPorSessao": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "EstoqueMinimo": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EstoqueItemDTO": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Categoria": {
+            "type": "string",
+            "nullable": true
+          },
+          "NomeItem": {
+            "type": "string",
+            "nullable": true
+          },
+          "Quantidade": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Unidade": {
+            "type": "string",
+            "nullable": true
+          },
+          "UsoPorSessao": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "EstoqueMinimo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SessoesRestantes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "Status": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginRequestDTO": {
         "type": "object",
         "properties": {

@@ -8,9 +8,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<EstoqueRepository>();
+builder.Services.AddScoped<EstoqueService>();
 
-builder.Services.AddSingleton<UsuarioRepository>();
-builder.Services.AddSingleton<UsuarioService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -18,7 +20,6 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
     });
 
-// Autenticação JWT
 var key = Encoding.ASCII.GetBytes(Configuration.PrivateKey);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
@@ -41,7 +42,6 @@ builder.Services.AddSwaggerGen(opt =>
 {
     opt.SwaggerDoc("v1", new OpenApiInfo { Title = "JwtAuth API", Version = "v1" });
 
-    // Configurar o token no Swagger
     var jwtSecurityScheme = new OpenApiSecurityScheme
     {
         BearerFormat = "JWT",
