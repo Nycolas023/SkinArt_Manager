@@ -24,6 +24,8 @@
 *.njsproj
 *.sqlite3
 *.pyc
+[Oo]bj/
+[Bb]in/
 
 ### Ambiente ###
 .env
@@ -45,3 +47,4 @@ Thumbs.db
 /SkinArt_Manager/Program.cs
 /SkinArt_Manager/Program.cs
 /SkinArt_Manager/Program.cs
+/SkinArt_Manager/bin/Debug/net8.0/SkinArt_Manager.dll
