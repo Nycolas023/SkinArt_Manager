@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "credenciais",
-        "Type": "SkinArt_Manager.DTOs.LoginRequestDTO",
+        "Type": "SkinArt_Manager.DTOs.UsuarioDTO.LoginRequestDTO",
         "IsRequired": true
       }
     ],
@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "credenciais",
-        "Type": "SkinArt_Manager.DTOs.LoginRequestDTO",
+        "Type": "SkinArt_Manager.DTOs.UsuarioDTO.LoginRequestDTO",
         "IsRequired": true
       }
     ],
@@ -42,131 +42,80 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "EstoqueController",
-    "Method": "GetEstoque",
-    "RelativePath": "api/Estoque",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "categoria",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[SkinArt_Manager.DTOs.EstoqueItemDTO, SkinArt_Manager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "EstoqueController",
-    "Method": "AddEstoqueItem",
-    "RelativePath": "api/Estoque",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "newItem",
-        "Type": "SkinArt_Manager.DTOs.CriarEstoqueItemDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "SkinArt_Manager.DTOs.EstoqueItemDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "EstoqueController",
-    "Method": "GetEstoqueItem",
-    "RelativePath": "api/Estoque/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "SkinArt_Manager.DTOs.EstoqueItemDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "EstoqueController",
-    "Method": "UpdateEstoqueItem",
-    "RelativePath": "api/Estoque/{id}",
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "AtualizaStatusAtivo",
+    "RelativePath": "api/Usuario/AtualizaUsuarioAtivo",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "idUsuario",
         "Type": "System.Int32",
-        "IsRequired": true
-      },
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "CriarUsuario",
+    "RelativePath": "api/Usuario/CriaUsuario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Name": "updatedItem",
-        "Type": "SkinArt_Manager.DTOs.AtualizarEstoqueItemDTO",
+        "Name": "usuario",
+        "Type": "SkinArt_Manager.DTOs.UsuarioDTO.CreateUsuarioDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "EstoqueController",
-    "Method": "DeleteEstoqueItem",
-    "RelativePath": "api/Estoque/{id}",
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "DeletaUsuario",
+    "RelativePath": "api/Usuario/DeletaUsuario",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "idUsuario",
         "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "AtualizaUsuario",
+    "RelativePath": "api/Usuario/EditarUsuario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "SkinArt_Manager.DTOs.UsuarioDTO.AtualizaUsuarioDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "EstoqueController",
-    "Method": "GetEstoqueBaixo",
-    "RelativePath": "api/Estoque/baixo",
+    "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
+    "Method": "GetUsuarioAsync",
+    "RelativePath": "api/Usuario/RetornaTodosUsuarios",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[SkinArt_Manager.DTOs.EstoqueItemDTO, SkinArt_Manager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[SkinArt_Manager.Models.Usuario, SkinArt_Manager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -178,14 +127,14 @@
   },
   {
     "ContainingType": "SkinArt_Manager.Controllers.UsuarioController",
-    "Method": "Get",
-    "RelativePath": "api/Usuario/RetornaFuncionalidadesUsuario",
-    "HttpMethod": "GET",
+    "Method": "AtualizaStatusInativo",
+    "RelativePath": "api/Usuario/SairUsuario",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "idUsuario",
         "Type": "System.Int32",
         "IsRequired": false
       }

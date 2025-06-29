@@ -1,6 +1,6 @@
-﻿namespace SkinArt_Manager.Models
+﻿namespace SkinArt_Manager.DTOs.UsuarioDTO
 {
-    public class Usuario
+    public class AtualizaUsuarioDTO
     {
         public int ID_USUARIO { get; set; }
         public string NOME_USUARIO { get; set; } = string.Empty;
@@ -10,8 +10,5 @@
         public string RG_USUARIO { get; set; } = string.Empty;
         public string LOGIN_USUARIO { get; set; } = string.Empty;
         public string SENHA_USUARIO { get; set; } = string.Empty;
-        public string? STATUS_USUARIO { get; set; } = string.Empty;
-        public DateTime? ULTIMO_LOGIN { get; set; }
     }
-
 }

@@ -79,19 +79,10 @@
         }
       }
     },
-    "/api/Estoque": {
+    "/api/Usuario/RetornaTodosUsuarios": {
       "get": {
         "tags": [
-          "Estoque"
-        ],
-        "parameters": [
-          {
-            "name": "categoria",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
+          "Usuario"
         ],
         "responses": {
           "200": {
@@ -101,7 +92,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                    "$ref": "#/components/schemas/Usuario"
                   }
                 }
               },
@@ -109,7 +100,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                    "$ref": "#/components/schemas/Usuario"
                   }
                 }
               },
@@ -117,208 +108,129 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/EstoqueItemDTO"
+                    "$ref": "#/components/schemas/Usuario"
                   }
                 }
               }
             }
           }
         }
-      },
+      }
+    },
+    "/api/Usuario/CriaUsuario": {
       "post": {
         "tags": [
-          "Estoque"
+          "Usuario"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CriarEstoqueItemDTO"
+                "$ref": "#/components/schemas/CreateUsuarioDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CriarEstoqueItemDTO"
+                "$ref": "#/components/schemas/CreateUsuarioDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CriarEstoqueItemDTO"
+                "$ref": "#/components/schemas/CreateUsuarioDTO"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/EstoqueItemDTO"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EstoqueItemDTO"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EstoqueItemDTO"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }
     },
-    "/api/Estoque/baixo": {
-      "get": {
-        "tags": [
-          "Estoque"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EstoqueItemDTO"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EstoqueItemDTO"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EstoqueItemDTO"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Estoque/{id}": {
-      "get": {
-        "tags": [
-          "Estoque"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/EstoqueItemDTO"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EstoqueItemDTO"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EstoqueItemDTO"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/Usuario/AtualizaUsuarioAtivo": {
       "put": {
-        "tags": [
-          "Estoque"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AtualizarEstoqueItemDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AtualizarEstoqueItemDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AtualizarEstoqueItemDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Estoque"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/Usuario/RetornaFuncionalidadesUsuario": {
-      "get": {
         "tags": [
           "Usuario"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "idUsuario",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Usuario/SairUsuario": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Usuario/EditarUsuario": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtualizaUsuarioDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtualizaUsuarioDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtualizaUsuarioDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Usuario/DeletaUsuario": {
+      "delete": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -336,114 +248,74 @@
   },
   "components": {
     "schemas": {
-      "AtualizarEstoqueItemDTO": {
+      "AtualizaUsuarioDTO": {
         "type": "object",
         "properties": {
-          "Id": {
+          "ID_USUARIO": {
             "type": "integer",
             "format": "int32"
           },
-          "Categoria": {
+          "NOME_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "NomeItem": {
+          "SOBRENOME_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "Quantidade": {
-            "type": "integer",
-            "format": "int32"
+          "DATA_NASC_USUARIO": {
+            "type": "string",
+            "format": "date-time"
           },
-          "Unidade": {
+          "CPF_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "UsoPorSessao": {
-            "type": "number",
-            "format": "double",
+          "RG_USUARIO": {
+            "type": "string",
             "nullable": true
           },
-          "EstoqueMinimo": {
-            "type": "integer",
-            "format": "int32"
+          "LOGIN_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "SENHA_USUARIO": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "CriarEstoqueItemDTO": {
+      "CreateUsuarioDTO": {
         "type": "object",
         "properties": {
-          "Categoria": {
+          "NOME_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "NomeItem": {
+          "SOBRENOME_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "Quantidade": {
-            "type": "integer",
-            "format": "int32"
+          "DATA_NASC_USUARIO": {
+            "type": "string",
+            "format": "date-time"
           },
-          "Unidade": {
+          "CPF_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "UsoPorSessao": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "EstoqueMinimo": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "EstoqueItemDTO": {
-        "type": "object",
-        "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Categoria": {
+          "RG_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "NomeItem": {
+          "LOGIN_USUARIO": {
             "type": "string",
             "nullable": true
           },
-          "Quantidade": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Unidade": {
+          "SENHA_USUARIO": {
             "type": "string",
             "nullable": true
-          },
-          "UsoPorSessao": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "EstoqueMinimo": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "SessoesRestantes": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "Status": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -457,6 +329,53 @@
           },
           "SENHA_USUARIO": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "ID_USUARIO": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "NOME_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "SOBRENOME_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "DATA_NASC_USUARIO": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "CPF_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "RG_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "LOGIN_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "SENHA_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "STATUS_USUARIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "ULTIMO_LOGIN": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },

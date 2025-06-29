@@ -1,4 +1,4 @@
-﻿namespace SkinArt_Manager.DTOs
+﻿namespace SkinArt_Manager.DTOs.UsuarioDTO
 {
     public class LoginRequestDTO
     {
