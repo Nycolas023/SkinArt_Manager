@@ -1,7 +1,6 @@
 ﻿using Dapper;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Data.SqlClient;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Models;
 using System.Data;
 
@@ -24,9 +23,14 @@ namespace SkinArt_Manager.Data
             return response.ToList();
         }
 
+        public async Task<Usuario?> GetUsuarioById(int id)
+        {
+            using var conn = new SqlConnection(_connectionString);
+            string sql = "SELECT * FROM Usuario WHERE ID_USUARIO = @id";
+            return await conn.QueryFirstOrDefaultAsync<Usuario>(sql, new { id });
+        }
+
         #region Logins
-=======
->>>>>>> parent of 478b68c (comitzaop)
         public async Task<LoginResponseDTO?> GetCredenciaisUsuarioAdmin(LoginRequestDTO credenciais)
         {
             using var conn = new SqlConnection(_connectionString);
