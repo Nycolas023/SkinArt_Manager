@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Services;
-using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -46,7 +45,6 @@ public class AuthController : ControllerBase
 
         return Unauthorized("Usuário ou senha inválidos");
     }
-
 
     [HttpGet("protegido")]
     [Authorize]
