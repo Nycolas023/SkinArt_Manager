@@ -1,5 +1,7 @@
 ﻿namespace SkinArt_Manager.DTOs.UsuarioDTO
 {
+
+    // ----> Comentário
     public class CreateUsuarioDTO
     {
         public string NOME_USUARIO { get; set; } = string.Empty;

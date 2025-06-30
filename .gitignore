@@ -24,6 +24,8 @@
 *.njsproj
 *.sqlite3
 *.pyc
+[Oo]bj/
+[Bb]in/
 
 ### Ambiente ###
 .env
@@ -38,17 +40,4 @@ appsettings.Development.local.json  # Ignora versões locais
 Thumbs.db
 /SkinArt_Manager/bin/
 /SkinArt_Manager/obj/
-/SkinArt_Manager/obj/Debug/net8.0/SkinArt_Manager.AssemblyInfo.cs
-/SkinArt_Manager/obj/Debug/net8.0/SkinArt_Manager.AssemblyInfoInputs.cache
-/SkinArt_Manager/bin/Debug/net8.0/SkinArt_Manager.dll
-/SkinArt_Manager/bin/Debug/net8.0/SkinArt_Manager.exe
-/SkinArt_Manager/obj/Debug/net8.0/EndpointInfo/SkinArt_Manager.json
-/SkinArt_Manager/obj/Debug/net8.0/ref/SkinArt_Manager.dll
-/SkinArt_Manager/obj/Debug/net8.0/refint/SkinArt_Manager.dll
-/SkinArt_Manager/obj/Debug/net8.0/ApiEndpoints.json
-/SkinArt_Manager/obj/Debug/net8.0/apphost.exe
-/SkinArt_Manager/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
-/SkinArt_Manager/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
-/SkinArt_Manager/obj/Debug/net8.0/SkinArt_Manager.csproj.CoreCompileInputs.cache
-/SkinArt_Manager/obj/Debug/net8.0/SkinArt_Manager.dll
-/SkinArt_Manager/obj/Debug/net8.0/SkinArt_Manager.sourcelink.json
+/SkinArt_Manager/Debug/

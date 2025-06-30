@@ -1,9 +1,10 @@
 ﻿using Dapper;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Data.SqlClient;
 using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Models;
 using System.Data;
+
+// ----> Comentário
 
 namespace SkinArt_Manager.Data
 {
@@ -16,11 +17,19 @@ namespace SkinArt_Manager.Data
             using var conn = new SqlConnection(_connectionString);
             string sql = "SELECT * FROM Usuario";
 
+
             var response = await conn.QueryAsync<Usuario>(sql);
 
             if (!response.Any()) return null;
 
             return response.ToList();
+        }
+
+        public async Task<Usuario?> GetUsuarioById(int id)
+        {
+            using var conn = new SqlConnection(_connectionString);
+            string sql = "SELECT * FROM Usuario WHERE ID_USUARIO = @id";
+            return await conn.QueryFirstOrDefaultAsync<Usuario>(sql, new { id });
         }
 
         #region Logins

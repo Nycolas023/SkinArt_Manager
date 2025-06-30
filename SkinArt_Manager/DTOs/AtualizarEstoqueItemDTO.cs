@@ -1,5 +1,7 @@
 ﻿namespace SkinArt_Manager.DTOs
 {
+    // ----> Comentário
+
     public class AtualizarEstoqueItemDTO
     {
         public int Id { get; set; }
