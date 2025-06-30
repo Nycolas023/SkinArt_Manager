@@ -140,6 +140,28 @@ CREATE TABLE PAGAMENTO (
 );
 GO
 
+CREATE TABLE OrdemServico (
+    ID_ORDEM_SERVICO INT PRIMARY KEY IDENTITY(1,1),
+    ID_CLIENTE INT NOT NULL,
+    ID_TATUADOR INT NOT NULL,
+    DESCRICAO_SERVICO VARCHAR(300) NOT NULL,
+    VALOR DECIMAL(10, 2) NOT NULL,
+    STATUS_SERVICO VARCHAR(50) NOT NULL,
+    DATA_CRIACAO DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (ID_CLIENTE) REFERENCES Cliente(ID_CLIENTE),
+    FOREIGN KEY (ID_TATUADOR) REFERENCES TATUADOR(ID_USUARIO)
+);
+GO
+
+CREATE TABLE TransacaoFinanceira (
+    ID_TRANSACAO INT PRIMARY KEY IDENTITY(1,1),
+    DATA_TRANSACAO DATE NOT NULL,
+    DESCRICAO VARCHAR(300) NOT NULL,
+    VALOR DECIMAL(10,2) NOT NULL,
+    TIPO_TRANSACAO VARCHAR(10) NOT NULL CHECK (TIPO_TRANSACAO IN ('Receita', 'Despesa')),
+    ORIGEM_REFERENCIA VARCHAR(100) NULL -- exemplo: 'OS #1245', 'Comissão - Maria'
+);
+
 
 --============================== INSERT TESTE ==================================
 
@@ -264,6 +286,157 @@ VALUES (
     'Cliente precisou reagendar por motivo de viagem.'
 );
 GO
+
+-- Adicionando mais tatuadores
+INSERT INTO USUARIO (NOME_USUARIO, SOBRENOME_USUARIO, DATA_NASC_USUARIO, CPF_USUARIO, RG_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, STATUS_USUARIO, ULTIMO_LOGIN)
+VALUES ('Ana', 'Santos', '1988-07-20', '222.333.444-55', '22.333.444-5', 'ana.santos', 'senha123', 'ATIVO', GETDATE());
+DECLARE @AnaTatuadorId INT = SCOPE_IDENTITY();
+INSERT INTO TATUADOR (ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR)
+VALUES (@AnaTatuadorId, 'Especialista em tatuagens minimalistas e delicadas', '9602501');
+INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@AnaTatuadorId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Tatuador'));
+GO
+
+INSERT INTO USUARIO (NOME_USUARIO, SOBRENOME_USUARIO, DATA_NASC_USUARIO, CPF_USUARIO, RG_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, STATUS_USUARIO, ULTIMO_LOGIN)
+VALUES ('Pedro', 'Costa', '1992-11-05', '333.444.555-66', '33.444.555-6', 'pedro.costa', 'senha123', 'ATIVO', GETDATE());
+DECLARE @PedroTatuadorId INT = SCOPE_IDENTITY();
+INSERT INTO TATUADOR (ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR)
+VALUES (@PedroTatuadorId, 'Mestre em tatuagens tribais e geométricas', '9602502');
+INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@PedroTatuadorId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Tatuador'));
+GO
+
+
+-- Adicionando um assistente administrativo
+INSERT INTO USUARIO (NOME_USUARIO, SOBRENOME_USUARIO, DATA_NASC_USUARIO, CPF_USUARIO, RG_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, STATUS_USUARIO, ULTIMO_LOGIN)
+VALUES ('Fernanda', 'Oliveira', '1990-04-15', '444.555.666-77', '44.555.666-7', 'fernanda.oliveira', 'senha123', 'ATIVO', GETDATE());
+DECLARE @FernandaUsuarioId INT = SCOPE_IDENTITY();
+INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@FernandaUsuarioId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Admin'));
+GO
+
+
+-- Adicionando artes para os novos tatuadores
+INSERT INTO ARTE_TATUADOR (ID_TATUADOR, IMAGEM_PATH_ARTE_TATUADOR, DESC_ARTE_TATUADOR)
+VALUES 
+(@AnaTatuadorId, 'imagens/arte_flor.png', 'Flor minimalista em linha fina'),
+(@AnaTatuadorId, 'imagens/arte_constelacao.png', 'Constelação personalizada'),
+(@PedroTatuadorId, 'imagens/arte_tribal.png', 'Design tribal tradicional'),
+(@PedroTatuadorId, 'imagens/arte_geometrica.png', 'Padrão geométrico complexo'),
+(@CarlosTatuadorId, 'imagens/arte_aguia.png', 'Águia tradicional colorida'),
+(@CarlosTatuadorId, 'imagens/arte_rosas.png', 'Rosas tradicionais'),
+(@MariaTatuadorId, 'imagens/arte_retrato.png', 'Retrato em preto e cinza'),
+(@MariaTatuadorId, 'imagens/arte_caveira.png', 'Caveira realista');
+GO
+
+
+-- Adicionando mais itens ao estoque
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES 
+('Tintas', 'Tinta Branca (30ml)', 3, 'ml', 1.5, 2),
+('Tintas', 'Tinta Azul (30ml)', 2, 'ml', 2.0, 2),
+('Tintas', 'Tinta Verde (30ml)', 1, 'ml', 1.0, 2),
+('Descartáveis', 'Capa para cadeira (100un)', 5, 'cx', 1, 3),
+('Descartáveis', 'Filme PVC (rolo)', 8, 'un', 0.5, 4),
+('Agulhas', 'Agulha Magnum #13', 25, 'un', 1, 10),
+('Agulhas', 'Agulha Round Shader #9', 20, 'un', 1, 10),
+('Equipamentos', 'Pedal', 2, 'un', NULL, 1),
+('Equipamentos', 'Cabo para máquina', 5, 'un', NULL, 2),
+('Higiene', 'Sabão líquido antibacteriano', 3, 'lt', 0.1, 1),
+('Higiene', 'Álcool 70%', 4, 'lt', 0.2, 2);
+GO
+
+
+-- Adicionando mais clientes
+INSERT INTO Cliente (NOME_COMPLETO, EMAIL, TELEFONE, DATA_NASCIMENTO, OBSERVACOES)
+VALUES 
+('Luiza Fernandes', 'luiza.fernandes@email.com', '(11) 94444-4444', '1993-07-12', 'Prefere tatuagens pequenas e discretas'),
+('Rafael Gonçalves', 'rafael.goncalves@email.com', '(11) 93333-3333', '1987-02-28', 'Colecionador de tatuagens, já tem mais de 20'),
+('Juliana Martins', 'juliana.martins@email.com', '(21) 92222-2222', '1995-09-15', 'Primeira tatuagem, quer algo significativo'),
+('Marcos Vinicius', 'marcos.vinicius@email.com', '(11) 91111-1111', '1990-12-05', 'Gosta de tatuagens grandes e detalhadas'),
+('Patricia Lima', 'patricia.lima@email.com', '(11) 90000-0000', '1985-05-20', 'Tem alergia a látex, usar luvas nitrílicas');
+GO
+
+
+-- Adicionando mais agendamentos
+INSERT INTO Agendamento (ID_CLIENTE, ID_TATUADOR, DATA_HORA_INICIO, DATA_HORA_FIM, ID_STATUS_AGENDAMENTO, TIPO_TATUAGEM, VALOR, OBSERVACOES)
+VALUES 
+((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'luiza.fernandes@email.com'), 
+ @AnaTatuadorId, 
+ '2025-07-03 10:00:00', '2025-07-03 11:30:00', 
+ (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Confirmado'),
+ 'Pulso - Frase minimalista', 300.00, 'Frase: "Carpe Diem" em fonte fina'),
+
+((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'rafael.goncalves@email.com'), 
+ @PedroTatuadorId, 
+ '2025-07-04 14:00:00', '2025-07-04 17:00:00', 
+ (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Confirmado'),
+ 'Costela - Tribal maori', 1200.00, 'Continuidade de tatuagem existente'),
+
+((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'juliana.martins@email.com'), 
+ @CarlosTatuadorId, 
+ '2025-07-05 09:00:00', '2025-07-05 12:00:00', 
+ (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Pendente'),
+ 'Braço - Flor tradicional colorida', 800.00, 'Primeira tatuagem, quer vermelho e amarelo'),
+
+((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'marcos.vinicius@email.com'), 
+ @MariaTatuadorId, 
+ '2025-07-06 13:00:00', '2025-07-06 18:00:00', 
+ (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Confirmado'),
+ 'Costas - Dragão realista', 2500.00, 'Sessão única, cliente experiente'),
+
+((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'patricia.lima@email.com'), 
+ @AnaTatuadorId, 
+ '2025-07-07 15:00:00', '2025-07-07 16:00:00', 
+ (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Pendente'),
+ 'Orelha - Constelação', 400.00, 'Usar apenas luvas nitrílicas');
+GO
+
+
+ -- Adicionando ordens de serviço
+INSERT INTO OrdemServico (ID_CLIENTE, ID_TATUADOR, DESCRICAO_SERVICO, VALOR, STATUS_SERVICO)
+VALUES 
+((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'joao.cliente@email.com'), 
+ (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'maria.tatuador'),
+ 'Tatuagem de dragão no braço direito - Sessão 1 de 3', 500.00, 'Em andamento'),
+
+((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'maria.cliente@email.com'), 
+ (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'carlos.lima'),
+ 'Tatuagem de flor colorida no tornozelo', 600.00, 'Concluído'),
+
+((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'carlos.cliente@email.com'), 
+ (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'pedro.costa'),
+ 'Tatuagem tribal no peito - Sessão 2 de 4', 800.00, 'Em andamento');
+GO
+
+
+ -- Adicionando transações financeiras
+INSERT INTO TransacaoFinanceira (DATA_TRANSACAO, DESCRICAO, VALOR, TIPO_TRANSACAO, ORIGEM_REFERENCIA)
+VALUES 
+('2025-06-01', 'Pagamento sessão tatuagem Maria Souza', 600.00, 'Receita', 'OS #2'),
+('2025-06-05', 'Compra de tintas e suprimentos', 850.50, 'Despesa', 'Fornecedor ABC'),
+('2025-06-10', 'Pagamento sessão tatuagem Rafael Gonçalves', 600.00, 'Receita', 'OS #5'),
+('2025-06-15', 'Salário tatuador Carlos Lima', 2200.00, 'Despesa', 'Folha de pagamento'),
+('2025-06-20', 'Pagamento adiantado João Silva', 300.00, 'Receita', 'OS #1'),
+('2025-06-25', 'Manutenção equipamentos', 450.00, 'Despesa', 'Técnico especializado'),
+('2025-06-28', 'Pagamento sessão tatuagem Carlos Oliveira', 400.00, 'Receita', 'OS #3'),
+('2025-06-30', 'Aluguel do estúdio', 1800.00, 'Despesa', 'Aluguel mensal');
+GO
+
+
+-- Adicionando pagamentos
+INSERT INTO PAGAMENTO (TIPO_PAGAMENTO, DATA_PAGAMENTO, HORA_PAGAMENTO, PARCELAMENTO_PAGAMENTO, ID_STATUS_PAGAMENTO, ID_TATUADOR)
+VALUES 
+('Cartão de Crédito', '2025-06-01', '10:15:00', 3, (SELECT ID_STATUS_PAGAMENTO FROM STATUS_PAGAMENTO WHERE STATUS_PAGAMENTO = 'Pago'), 
+ (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'maria.tatuador')),
+
+('PIX', '2025-06-10', '14:30:00', 1, (SELECT ID_STATUS_PAGAMENTO FROM STATUS_PAGAMENTO WHERE STATUS_PAGAMENTO = 'Pago'), 
+ (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'pedro.costa')),
+
+('Dinheiro', '2025-06-15', '11:45:00', 1, (SELECT ID_STATUS_PAGAMENTO FROM STATUS_PAGAMENTO WHERE STATUS_PAGAMENTO = 'Pago'), 
+ (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'carlos.lima')),
+
+('Cartão de Débito', '2025-06-20', '16:20:00', 1, (SELECT ID_STATUS_PAGAMENTO FROM STATUS_PAGAMENTO WHERE STATUS_PAGAMENTO = 'Pendente'), 
+ (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'ana.santos'));
+GO
+
 
 
 --==================================== PROCEDURES ===================================
@@ -393,3 +566,130 @@ BEGIN
 	SELECT * FROM USUARIO WHERE ID_USUARIO = SCOPE_IDENTITY();
 END;
 GO
+
+--NOVAS PROCEDURES
+
+CREATE PROCEDURE stp_inserir_ordem_servico
+    @ID_CLIENTE INT,
+    @ID_TATUADOR INT,
+    @DESCRICAO_SERVICO VARCHAR(300),
+    @VALOR DECIMAL(10,2),
+    @STATUS_SERVICO VARCHAR(50)
+AS
+BEGIN
+    INSERT INTO OrdemServico (ID_CLIENTE, ID_TATUADOR, DESCRICAO_SERVICO, VALOR, STATUS_SERVICO)
+    VALUES (@ID_CLIENTE, @ID_TATUADOR, @DESCRICAO_SERVICO, @VALOR, @STATUS_SERVICO);
+
+    SELECT * FROM OrdemServico WHERE ID_ORDEM_SERVICO = SCOPE_IDENTITY();
+END;
+GO
+
+CREATE PROCEDURE stp_atualizar_ordem_servico
+    @ID_ORDEM_SERVICO INT,
+    @DESCRICAO_SERVICO VARCHAR(300),
+    @VALOR DECIMAL(10,2),
+    @STATUS_SERVICO VARCHAR(50)
+AS
+BEGIN
+    UPDATE OrdemServico
+    SET DESCRICAO_SERVICO = @DESCRICAO_SERVICO,
+        VALOR = @VALOR,
+        STATUS_SERVICO = @STATUS_SERVICO
+    WHERE ID_ORDEM_SERVICO = @ID_ORDEM_SERVICO;
+END;
+GO
+
+CREATE PROCEDURE stp_deletar_ordem_servico
+    @ID_ORDEM_SERVICO INT
+AS
+BEGIN
+    DELETE FROM OrdemServico WHERE ID_ORDEM_SERVICO = @ID_ORDEM_SERVICO;
+END;
+GO
+
+CREATE PROCEDURE stp_listar_ordens_servico
+    @STATUS_SERVICO VARCHAR(50) = 'Todas'
+AS
+BEGIN
+    SELECT 
+        OS.ID_ORDEM_SERVICO,
+        OS.DESCRICAO_SERVICO,
+        OS.VALOR,
+        OS.STATUS_SERVICO,
+        C.NOME_COMPLETO AS CLIENTE,
+        CONCAT(U.NOME_USUARIO, ' ', U.SOBRENOME_USUARIO) AS TATUADOR,
+        OS.DATA_CRIACAO
+    FROM OrdemServico OS
+    JOIN Cliente C ON C.ID_CLIENTE = OS.ID_CLIENTE
+    JOIN TATUADOR T ON T.ID_USUARIO = OS.ID_TATUADOR
+    JOIN USUARIO U ON U.ID_USUARIO = T.ID_USUARIO
+    WHERE (@STATUS_SERVICO = 'Todas' OR OS.STATUS_SERVICO = @STATUS_SERVICO)
+    ORDER BY OS.ID_ORDEM_SERVICO DESC;
+END;
+GO
+
+CREATE PROCEDURE stp_inserir_transacao_financeira
+    @DATA_TRANSACAO DATE,
+    @DESCRICAO VARCHAR(300),
+    @VALOR DECIMAL(10,2),
+    @TIPO_TRANSACAO VARCHAR(10),
+    @ORIGEM_REFERENCIA VARCHAR(100)
+AS
+BEGIN
+    INSERT INTO TransacaoFinanceira (DATA_TRANSACAO, DESCRICAO, VALOR, TIPO_TRANSACAO, ORIGEM_REFERENCIA)
+    VALUES (@DATA_TRANSACAO, @DESCRICAO, @VALOR, @TIPO_TRANSACAO, @ORIGEM_REFERENCIA);
+
+    SELECT * FROM TransacaoFinanceira WHERE ID_TRANSACAO = SCOPE_IDENTITY();
+END;
+GO
+
+CREATE PROCEDURE stp_atualizar_transacao_financeira
+    @ID_TRANSACAO INT,
+    @DESCRICAO VARCHAR(300),
+    @VALOR DECIMAL(10,2),
+    @TIPO_TRANSACAO VARCHAR(10),
+    @ORIGEM_REFERENCIA VARCHAR(100)
+AS
+BEGIN
+    UPDATE TransacaoFinanceira
+    SET DESCRICAO = @DESCRICAO,
+        VALOR = @VALOR,
+        TIPO_TRANSACAO = @TIPO_TRANSACAO,
+        ORIGEM_REFERENCIA = @ORIGEM_REFERENCIA
+    WHERE ID_TRANSACAO = @ID_TRANSACAO;
+END;
+GO
+
+CREATE PROCEDURE stp_deletar_transacao_financeira
+    @ID_TRANSACAO INT
+AS
+BEGIN
+    DELETE FROM TransacaoFinanceira WHERE ID_TRANSACAO = @ID_TRANSACAO;
+END;
+GO
+
+CREATE PROCEDURE stp_listar_transacoes_recentes
+AS
+BEGIN
+    SELECT TOP 10
+        ID_TRANSACAO,
+        DATA_TRANSACAO,
+        DESCRICAO,
+        VALOR,
+        TIPO_TRANSACAO,
+        ORIGEM_REFERENCIA
+    FROM TransacaoFinanceira
+    ORDER BY DATA_TRANSACAO DESC, ID_TRANSACAO DESC;
+END;
+GO
+
+CREATE PROCEDURE stp_resumo_financeiro
+AS
+BEGIN
+    SELECT 
+        SUM(CASE WHEN TIPO_TRANSACAO = 'Receita' THEN VALOR ELSE 0 END) AS ReceitaTotal,
+        SUM(CASE WHEN TIPO_TRANSACAO = 'Despesa' THEN VALOR ELSE 0 END) AS Despesas,
+        SUM(CASE WHEN TIPO_TRANSACAO = 'Receita' THEN VALOR ELSE 0 END) -
+        SUM(CASE WHEN TIPO_TRANSACAO = 'Despesa' THEN VALOR ELSE 0 END) AS Lucro
+    FROM TransacaoFinanceira;
+END;
