@@ -176,9 +176,7 @@ INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@JoaoUsuarioId, (SELECT
 INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@JoaoUsuarioId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Admin'));
 INSERT INTO TATUADOR (ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR)
 VALUES (@JoaoUsuarioId, 'Especialista em tatuagem realista', '9602501');
-GO
 
-DECLARE @JoaoUsuarioId INT = SCOPE_IDENTITY();
 INSERT INTO ARTE_TATUADOR (ID_TATUADOR, IMAGEM_PATH_ARTE_TATUADOR, DESC_ARTE_TATUADOR)
 VALUES (@JoaoUsuarioId, 'imagens/arte_dragon.png', 'Dragão japonês em estilo realista');
 GO
@@ -273,13 +271,14 @@ VALUES (
     850.00,
     'Sessão inicial, design complexo.'
 );
+GO
 
 INSERT INTO Agendamento (ID_CLIENTE, ID_TATUADOR, DATA_HORA_INICIO, DATA_HORA_FIM, ID_STATUS_AGENDAMENTO, TIPO_TATUAGEM, VALOR, OBSERVACOES)
 VALUES (
     (SELECT TOP 1 ID_CLIENTE FROM Cliente WHERE EMAIL = 'joao.cliente@email.com'),
     (SELECT TOP 1 ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'maria.tatuador'),
-    '2025-06-25 09:00:00',
-    '2025-06-25 11:00:00',
+    CAST('2025-06-25T09:00:00' AS DATETIME),
+    CAST('2025-06-25T11:00:00' AS DATETIME),
     (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Cancelado'),
     'Perna - Leão realista',
     700.00,
@@ -316,14 +315,14 @@ GO
 -- Adicionando artes para os novos tatuadores
 INSERT INTO ARTE_TATUADOR (ID_TATUADOR, IMAGEM_PATH_ARTE_TATUADOR, DESC_ARTE_TATUADOR)
 VALUES 
-(@AnaTatuadorId, 'imagens/arte_flor.png', 'Flor minimalista em linha fina'),
-(@AnaTatuadorId, 'imagens/arte_constelacao.png', 'Constelação personalizada'),
-(@PedroTatuadorId, 'imagens/arte_tribal.png', 'Design tribal tradicional'),
-(@PedroTatuadorId, 'imagens/arte_geometrica.png', 'Padrão geométrico complexo'),
-(@CarlosTatuadorId, 'imagens/arte_aguia.png', 'Águia tradicional colorida'),
-(@CarlosTatuadorId, 'imagens/arte_rosas.png', 'Rosas tradicionais'),
-(@MariaTatuadorId, 'imagens/arte_retrato.png', 'Retrato em preto e cinza'),
-(@MariaTatuadorId, 'imagens/arte_caveira.png', 'Caveira realista');
+(3, 'imagens/arte_flor.png', 'Flor minimalista em linha fina'),
+(3, 'imagens/arte_constelacao.png', 'Constelação personalizada'),
+(5, 'imagens/arte_tribal.png', 'Design tribal tradicional'),
+(5, 'imagens/arte_geometrica.png', 'Padrão geométrico complexo'),
+(4, 'imagens/arte_aguia.png', 'Águia tradicional colorida'),
+(4, 'imagens/arte_rosas.png', 'Rosas tradicionais'),
+(2, 'imagens/arte_retrato.png', 'Retrato em preto e cinza'),
+(2, 'imagens/arte_caveira.png', 'Caveira realista');
 GO
 
 
@@ -358,52 +357,26 @@ GO
 -- Adicionando mais agendamentos
 INSERT INTO Agendamento (ID_CLIENTE, ID_TATUADOR, DATA_HORA_INICIO, DATA_HORA_FIM, ID_STATUS_AGENDAMENTO, TIPO_TATUAGEM, VALOR, OBSERVACOES)
 VALUES 
-((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'luiza.fernandes@email.com'), 
- @AnaTatuadorId, 
- '2025-07-03 10:00:00', '2025-07-03 11:30:00', 
- (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Confirmado'),
- 'Pulso - Frase minimalista', 300.00, 'Frase: "Carpe Diem" em fonte fina'),
+(6, 3, '2025-07-03 10:00:00', '2025-07-03 11:30:00', 2, 'Pulso - Frase minimalista', 300.00, 'Frase: "Carpe Diem" em fonte fina'),
 
-((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'rafael.goncalves@email.com'), 
- @PedroTatuadorId, 
- '2025-07-04 14:00:00', '2025-07-04 17:00:00', 
- (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Confirmado'),
- 'Costela - Tribal maori', 1200.00, 'Continuidade de tatuagem existente'),
+(7, 5, '2025-07-04 14:00:00', '2025-07-04 17:00:00', 2, 'Costela - Tribal maori', 1200.00, 'Continuidade de tatuagem existente'),
 
-((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'juliana.martins@email.com'), 
- @CarlosTatuadorId, 
- '2025-07-05 09:00:00', '2025-07-05 12:00:00', 
- (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Pendente'),
- 'Braço - Flor tradicional colorida', 800.00, 'Primeira tatuagem, quer vermelho e amarelo'),
+(8, 4, '2025-07-05 09:00:00', '2025-07-05 12:00:00', 1, 'Braço - Flor tradicional colorida', 800.00, 'Primeira tatuagem, quer vermelho e amarelo'),
 
-((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'marcos.vinicius@email.com'), 
- @MariaTatuadorId, 
- '2025-07-06 13:00:00', '2025-07-06 18:00:00', 
- (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Confirmado'),
- 'Costas - Dragão realista', 2500.00, 'Sessão única, cliente experiente'),
+(9, 2, '2025-07-06 13:00:00', '2025-07-06 18:00:00', 2, 'Costas - Dragão realista', 2500.00, 'Sessão única, cliente experiente'),
 
-((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'patricia.lima@email.com'), 
- @AnaTatuadorId, 
- '2025-07-07 15:00:00', '2025-07-07 16:00:00', 
- (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Pendente'),
- 'Orelha - Constelação', 400.00, 'Usar apenas luvas nitrílicas');
+(10, 3, '2025-07-07 15:00:00', '2025-07-07 16:00:00', 1, 'Orelha - Constelação', 400.00, 'Usar apenas luvas nitrílicas');
 GO
 
 
  -- Adicionando ordens de serviço
 INSERT INTO OrdemServico (ID_CLIENTE, ID_TATUADOR, DESCRICAO_SERVICO, VALOR, STATUS_SERVICO)
 VALUES 
-((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'joao.cliente@email.com'), 
- (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'maria.tatuador'),
- 'Tatuagem de dragão no braço direito - Sessão 1 de 3', 500.00, 'Em andamento'),
-
-((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'maria.cliente@email.com'), 
- (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'carlos.lima'),
- 'Tatuagem de flor colorida no tornozelo', 600.00, 'Concluído'),
-
-((SELECT ID_CLIENTE FROM Cliente WHERE EMAIL = 'carlos.cliente@email.com'), 
- (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'pedro.costa'),
- 'Tatuagem tribal no peito - Sessão 2 de 4', 800.00, 'Em andamento');
+(1, 2, 'Tatuagem de dragão no braço direito - Sessão 1 de 3', 500.00, 'Em andamento'),
+(2, 4, 'Tatuagem de flor colorida no tornozelo', 600.00, 'Concluído'),
+(3, 5, 'Tatuagem tribal no peito - Sessão 2 de 4', 800.00, 'Em andamento'),
+(6, 3, 'Tatuagem minimalista no pulso', 300.00, 'Agendado'),
+(7, 5, 'Tatuagem maori na costela', 1200.00, 'Concluído');
 GO
 
 
@@ -424,17 +397,10 @@ GO
 -- Adicionando pagamentos
 INSERT INTO PAGAMENTO (TIPO_PAGAMENTO, DATA_PAGAMENTO, HORA_PAGAMENTO, PARCELAMENTO_PAGAMENTO, ID_STATUS_PAGAMENTO, ID_TATUADOR)
 VALUES 
-('Cartão de Crédito', '2025-06-01', '10:15:00', 3, (SELECT ID_STATUS_PAGAMENTO FROM STATUS_PAGAMENTO WHERE STATUS_PAGAMENTO = 'Pago'), 
- (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'maria.tatuador')),
-
-('PIX', '2025-06-10', '14:30:00', 1, (SELECT ID_STATUS_PAGAMENTO FROM STATUS_PAGAMENTO WHERE STATUS_PAGAMENTO = 'Pago'), 
- (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'pedro.costa')),
-
-('Dinheiro', '2025-06-15', '11:45:00', 1, (SELECT ID_STATUS_PAGAMENTO FROM STATUS_PAGAMENTO WHERE STATUS_PAGAMENTO = 'Pago'), 
- (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'carlos.lima')),
-
-('Cartão de Débito', '2025-06-20', '16:20:00', 1, (SELECT ID_STATUS_PAGAMENTO FROM STATUS_PAGAMENTO WHERE STATUS_PAGAMENTO = 'Pendente'), 
- (SELECT ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'ana.santos'));
+('Cartão de Crédito', '2025-06-01', '10:15:00', 3, 2, 2),  -- Maria Tatuador
+('PIX', '2025-06-10', '14:30:00', 1, 2, 5),                -- Pedro Costa
+('Dinheiro', '2025-06-15', '11:45:00', 1, 2, 4),           -- Carlos Lima
+('Cartão de Débito', '2025-06-20', '16:20:00', 1, 1, 3);   -- Ana Santos
 GO
 
 

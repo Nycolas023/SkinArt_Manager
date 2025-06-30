@@ -40,5 +40,48 @@ namespace SkinArt_Manager.Data
 
         //PAREI AQUI PRECISO CRIAR NOVAS ORDENS DE SERVIÇO E CRIAR O ENDPOINT DE EDIÇÃO
 
+        public async Task<CreateOrdemServicoDTO> CreateOrdemServico(CreateOrdemServicoDTO ordem)
+        {
+            using var conn = new SqlConnection(_connectionString);
+
+                var parametros = new {
+                    ID_CLIENTE = ordem.ID_CLIENTE,
+                    ID_TATUADOR = ordem.ID_TATUADOR,
+                    STATUS_SERVICO = ordem.STATUS_SERVICO,
+                    VALOR = ordem.VALOR,
+                    DESCRICAO_SERVICO = ordem.DESCRICAO_SERVICO,
+
+                };
+
+                var resultados = await conn.QueryFirstAsync<CreateOrdemServicoDTO>(
+                    "stp_inserir_ordem_servico",
+                    parametros,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return resultados;
+        }
+
+        public async Task<string> AlterOrdemService(UpdateOrdemServico ordem)
+        {
+            using var conn = new SqlConnection(_connectionString);
+
+            var parametros = new
+            {
+                ID_ORDEM_SERVICO = ordem.ID_ORDEM_SERVICO,
+                DESCRICAO_SERVICO = ordem.DESCRICAO_SERVICO,
+                VALOR = ordem.VALOR,
+                STATUS_SERVICO = ordem.STATUS_SERVICO,
+
+            };
+
+            var resultados = await conn.ExecuteAsync(
+                "stp_atualizar_ordem_servico",
+                parametros,
+                commandType: CommandType.StoredProcedure
+            );
+
+            return resultados > 0 ? "Ordem alterada com sucesso" : "Falha ao alterar o ordem"; ;
+        }
     }
 }
