@@ -15,5 +15,14 @@ namespace SkinArt_Manager.Services
         {
             return this.respository.GetOrdemServico(ordem);
         }
+
+        public Task<CreateOrdemServicoDTO> CreateOrdemServico(CreateOrdemServicoDTO ordem)
+        {
+            return this.respository.CreateOrdemServico(ordem);
+        }
+        public Task<string> UpdateOrdemServico(UpdateOrdemServico ordem)
+        {
+            return this.respository.AlterOrdemService(ordem);
+        }
     }
 }
