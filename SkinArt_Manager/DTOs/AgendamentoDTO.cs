@@ -2,6 +2,7 @@
 
 namespace SkinArt_Manager.DTOs
 {
+    // ----> Comentário
     public class AgendamentoDTO
     {
         public int Id { get; set; }

@@ -1,5 +1,7 @@
 ﻿namespace SkinArt_Manager.DTOs
 {
+
+    // ----> Comentário
     public class ClienteDTO
     {
         public int Id { get; set; }

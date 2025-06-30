@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SkinArt_Manager.Services
 {
+    // ----> Comentário
     public class AgendamentoService
     {
         private readonly AgendamentoRepository _agendamentoRepository;

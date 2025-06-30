@@ -5,6 +5,8 @@ using SkinArt_Manager.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+// ----> Comentário
+
 namespace SkinArt_Manager.Data
 {
     public class ClienteRepository

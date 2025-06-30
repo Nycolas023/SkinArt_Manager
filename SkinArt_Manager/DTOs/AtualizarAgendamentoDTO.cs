@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
+// ----> Comentário
+
 namespace SkinArt_Manager.DTOs
 {
     public class AtualizarAgendamentoDTO

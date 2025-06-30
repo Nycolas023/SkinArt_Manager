@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace SkinArt_Manager.Services
 {
+    // ----> Comentário
     public class EstoqueService
     {
         private readonly EstoqueRepository _estoqueRepository;

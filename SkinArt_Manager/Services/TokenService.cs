@@ -6,6 +6,7 @@ using System.Text;
 
 namespace SkinArt_Manager.Services
 {
+    // ----> Comentário
     public class TokenService
     {
         public static string GenerateToken(LoginResponseDTO usuario)

@@ -1,6 +1,8 @@
 ﻿//using Microsoft.AspNetCore.Authorization;
 //using Microsoft.AspNetCore.Mvc;
 
+// ----> Comentário
+
 //namespace SkinArt_Manager.Controllers
 //{
 //    [ApiController]

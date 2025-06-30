@@ -5,6 +5,8 @@ using SkinArt_Manager.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+// ----> Comentário
+
 [ApiController]
 [Route("api/[controller]")]
 [Authorize] 

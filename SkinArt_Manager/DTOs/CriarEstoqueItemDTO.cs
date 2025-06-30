@@ -2,6 +2,7 @@
 {
     public class CriarEstoqueItemDTO
     {
+        // ----> Comentário
         public string Categoria { get; set; }
         public string NomeItem { get; set; }
         public int Quantidade { get; set; }

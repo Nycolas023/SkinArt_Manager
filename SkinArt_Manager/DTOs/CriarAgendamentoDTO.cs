@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SkinArt_Manager.DTOs
 {
+    // ----> Comentário
     public class CriarAgendamentoDTO
     {
         [Required(ErrorMessage = "O cliente é obrigatório.")]

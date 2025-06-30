@@ -2,6 +2,7 @@
 
 namespace SkinArt_Manager.DTOs
 {
+    // ----> Comentário
     public class CriarClienteDTO
     {
         [Required(ErrorMessage = "O nome completo é obrigatório.")]
