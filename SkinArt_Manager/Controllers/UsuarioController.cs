@@ -4,6 +4,8 @@ using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Models;
 using SkinArt_Manager.Services;
 
+// ----> Comentário
+
 namespace SkinArt_Manager.Controllers
 {
     [ApiController]

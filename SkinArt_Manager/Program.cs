@@ -6,6 +6,8 @@ using SkinArt_Manager.Data;
 using SkinArt_Manager.Services;
 using System.Text;
 
+// ----> Comentário
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<UsuarioRepository>();

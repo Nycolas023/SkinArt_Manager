@@ -1,5 +1,7 @@
 ﻿namespace SkinArt_Manager.DTOs.UsuarioDTO
 {
+
+    // ----> Comentário
     public class AtualizaUsuarioDTO
     {
         public int ID_USUARIO { get; set; }

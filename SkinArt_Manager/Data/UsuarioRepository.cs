@@ -4,6 +4,8 @@ using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Models;
 using System.Data;
 
+// ----> Comentário
+
 namespace SkinArt_Manager.Data
 {
     public class UsuarioRepository(IConfiguration configuration)

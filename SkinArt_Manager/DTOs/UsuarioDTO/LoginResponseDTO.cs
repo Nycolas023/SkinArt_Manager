@@ -2,6 +2,7 @@
 
 namespace SkinArt_Manager.DTOs.UsuarioDTO
 {
+    // ----> Comentário
     public class LoginResponseDTO
     {
         public string Token { get; set; }

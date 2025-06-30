@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SkinArt_Manager.Services
 {
+    // ----> Comentário
     public class UsuarioService
     {
         private readonly UsuarioRepository repository;

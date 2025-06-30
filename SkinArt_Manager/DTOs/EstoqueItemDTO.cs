@@ -2,6 +2,7 @@
 {
     public class EstoqueItemDTO
     {
+        // ----> Comentário
         public int Id { get; set; }
         public string Categoria { get; set; }
         public string NomeItem { get; set; }
