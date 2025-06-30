@@ -17,7 +17,7 @@ namespace SkinArt_Manager.Data
             using var conn = new SqlConnection(_connectionString);
             string sql = "SELECT * FROM Usuario";
 
-<<<<<<< HEAD
+
             var response = await conn.QueryAsync<Usuario>(sql);
 
             if (!response.Any()) return null;
