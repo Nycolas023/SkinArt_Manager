@@ -1,7 +1,17 @@
---CREATE DATABASE SKINART
+USE master;
+GO
+
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'SKINART')
+BEGIN
+    ALTER DATABASE SKINART SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE SKINART;
+END
+GO
+
+CREATE DATABASE SKINART;
+GO
 
 USE SKINART;
-
 GO
 
 CREATE TABLE USUARIO (
@@ -13,14 +23,14 @@ CREATE TABLE USUARIO (
 	RG_USUARIO VARCHAR(15) NOT NULL,
 	LOGIN_USUARIO VARCHAR(200) UNIQUE NOT NULL,
 	SENHA_USUARIO VARCHAR(200) NOT NULL,
-	STATUS_USUARIO VARCHAR(40)NOT NULL DEFAULT 'INATIVO',
+	STATUS_USUARIO VARCHAR(40) NOT NULL DEFAULT 'INATIVO',
 	ULTIMO_LOGIN DATE
 );
 GO
 
 CREATE TABLE PAPEL (
 	ID_PAPEL INT PRIMARY KEY IDENTITY(1,1),
-	NOME_PAPEL VARCHAR(50) NOT NULL 
+	NOME_PAPEL VARCHAR(50) NOT NULL
 );
 GO
 
@@ -50,13 +60,65 @@ CREATE TABLE ARTE_TATUADOR (
 );
 GO
 
-CREATE TABLE AGENDAMENTO (
-	ID_AGENDAMENTO INT PRIMARY KEY IDENTITY(1,1),
-	DATA_AGENDAMENTO DATE NOT NULL,
-	HORA_AGENDAMENTO TIME NOT NULL,
-	ID_TATUADOR INT NOT NULL,
-	FOREIGN KEY (ID_TATUADOR) REFERENCES TATUADOR(ID_USUARIO)
+CREATE TABLE EstoqueItem (
+    ID_EstoqueItem INT PRIMARY KEY IDENTITY(1,1),
+    Categoria VARCHAR(100) NOT NULL,
+    NomeItem VARCHAR(255) NOT NULL,
+    Quantidade INT NOT NULL,
+    Unidade VARCHAR(50) NOT NULL,
+    UsoPorSessao DECIMAL(10, 2) NULL,
+    EstoqueMinimo INT NOT NULL,
+    DataCriacao DATETIME DEFAULT GETDATE(),
+    DataAtualizacao DATETIME DEFAULT GETDATE()
 );
+GO
+
+CREATE INDEX IX_EstoqueItem_CategoriaNome ON EstoqueItem (Categoria, NomeItem);
+GO
+
+CREATE TABLE Cliente (
+    ID_CLIENTE INT PRIMARY KEY IDENTITY(1,1),
+    NOME_COMPLETO VARCHAR(255) NOT NULL,
+    EMAIL VARCHAR(255) UNIQUE NOT NULL,
+    TELEFONE VARCHAR(20) NOT NULL,
+    DATA_NASCIMENTO DATE NULL,
+    OBSERVACOES NVARCHAR(MAX) NULL,
+    DATA_CRIACAO DATETIME DEFAULT GETDATE(),
+    DATA_ATUALIZACAO DATETIME DEFAULT GETDATE()
+);
+GO
+
+CREATE INDEX IX_Cliente_NomeEmail ON Cliente (NOME_COMPLETO, EMAIL);
+GO
+
+CREATE TABLE StatusAgendamento (
+    ID_STATUS_AGENDAMENTO INT PRIMARY KEY IDENTITY(1,1),
+    NOME_STATUS VARCHAR(50) NOT NULL UNIQUE
+);
+GO
+
+CREATE TABLE Agendamento (
+    ID_AGENDAMENTO INT PRIMARY KEY IDENTITY(1,1),
+    ID_CLIENTE INT NOT NULL,
+    ID_TATUADOR INT NOT NULL,
+    DATA_HORA_INICIO DATETIME NOT NULL,
+    DATA_HORA_FIM DATETIME NOT NULL,
+    ID_STATUS_AGENDAMENTO INT NOT NULL,
+    TIPO_TATUAGEM VARCHAR(255) NOT NULL,
+    VALOR DECIMAL(10, 2) NOT NULL,
+    OBSERVACOES NVARCHAR(MAX) NULL,
+    DATA_CRIACAO DATETIME DEFAULT GETDATE(),
+    DATA_ATUALIZACAO DATETIME DEFAULT GETDATE(),
+
+    FOREIGN KEY (ID_CLIENTE) REFERENCES Cliente(ID_CLIENTE),
+    FOREIGN KEY (ID_TATUADOR) REFERENCES Tatuador(ID_USUARIO),
+    FOREIGN KEY (ID_STATUS_AGENDAMENTO) REFERENCES StatusAgendamento(ID_STATUS_AGENDAMENTO)
+);
+GO
+
+CREATE INDEX IX_Agendamento_TatuadorData ON Agendamento (ID_TATUADOR, DATA_HORA_INICIO);
+CREATE INDEX IX_Agendamento_ClienteData ON Agendamento (ID_CLIENTE, DATA_HORA_INICIO);
+CREATE INDEX IX_Agendamento_Status ON Agendamento (ID_STATUS_AGENDAMENTO);
 GO
 
 CREATE TABLE STATUS_PAGAMENTO (
@@ -78,70 +140,131 @@ CREATE TABLE PAGAMENTO (
 );
 GO
 
---CREATE TABLE SALARIO (
---	ID_SALARIO INT PRIMARY KEY IDENTITY(1,1),
---	ID_TATUADOR INT NOT NULL,
---	VALOR_SALARIO DECIMAL(10,2) NOT NULL,
---	DATA_CAIMENTO_SALARIO DATE NOT NULL,
---	FOREIGN KEY (ID_TATUADOR) REFERENCES TATUADOR(ID_USUARIO)
---);
---GO
-
-
 
 --============================== INSERT TESTE ==================================
 
-INSERT INTO USUARIO (
-	NOME_USUARIO, SOBRENOME_USUARIO, DATA_NASC_USUARIO, CPF_USUARIO,
-	RG_USUARIO, LOGIN_USUARIO, SENHA_USUARIO
-) VALUES (
-	'João', 'Silva', '1990-05-15', '123.456.789-00',
-	'12.345.678-9', 'joao.silva', 'senha123'
-);
-
 INSERT INTO PAPEL (NOME_PAPEL) VALUES ('Tatuador');
 INSERT INTO PAPEL (NOME_PAPEL) VALUES ('Admin');
+GO
 
-INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (1, 1); -- Tatuador
-INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (1, 2); -- Admin
+INSERT INTO USUARIO (NOME_USUARIO, SOBRENOME_USUARIO, DATA_NASC_USUARIO, CPF_USUARIO, RG_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, STATUS_USUARIO, ULTIMO_LOGIN)
+VALUES ('João', 'Silva', '1990-05-15', '123.456.789-00', '12.345.678-9', 'joao.silva', 'senha123', 'ATIVO', GETDATE());
+DECLARE @JoaoUsuarioId INT = SCOPE_IDENTITY();
+INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@JoaoUsuarioId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Tatuador'));
+INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@JoaoUsuarioId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Admin'));
+INSERT INTO TATUADOR (ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR)
+VALUES (@JoaoUsuarioId, 'Especialista em tatuagem realista', '9602501');
+GO
 
-INSERT INTO TATUADOR (
-	ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR
-) VALUES (
-	1, 'Especialista em tatuagem realista', '9602501'
-);
-
-INSERT INTO ARTE_TATUADOR (
-	ID_TATUADOR, IMAGEM_PATH_ARTE_TATUADOR, DESC_ARTE_TATUADOR
-) VALUES (
-	1, 'imagens/arte_dragon.png', 'Dragão japonês em estilo realista'
-);
+DECLARE @JoaoUsuarioId INT = SCOPE_IDENTITY();
+INSERT INTO ARTE_TATUADOR (ID_TATUADOR, IMAGEM_PATH_ARTE_TATUADOR, DESC_ARTE_TATUADOR)
+VALUES (@JoaoUsuarioId, 'imagens/arte_dragon.png', 'Dragão japonês em estilo realista');
+GO
 
 INSERT INTO STATUS_PAGAMENTO (STATUS_PAGAMENTO) VALUES ('Pendente');
 INSERT INTO STATUS_PAGAMENTO (STATUS_PAGAMENTO) VALUES ('Pago');
-
---INSERT INTO PAGAMENTO (
---	TIPO_PAGAMENTO, DATA_PAGAMENTO, HORA_PAGAMENTO, PARCELAMENTO_PAGAMENTO,
---	ID_STATUS_PAGAMENTO, ID_TATUADOR
---) VALUES (
---	'Cartão de Crédito', '2025-06-24', '15:30:00', 3,
---	2, -- 'Pago'
---	1
---);
-
-
---DROP TABLE IF EXISTS PAGAMENTO;
---DROP TABLE IF EXISTS SALARIO;
---DROP TABLE IF EXISTS ARTE_TATUADOR;
---DROP TABLE IF EXISTS AGENDAMENTO;
---DROP TABLE IF EXISTS STATUS_PAGAMENTO;
---DROP TABLE IF EXISTS TATUADOR;
---DROP TABLE IF EXISTS ADMIN_SISTEMA;
---DROP TABLE IF EXISTS USUARIO_PAPEL;
---DROP TABLE IF EXISTS PAPEL;
---DROP TABLE IF EXISTS USUARIO
-
 GO
+
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Equipamentos', 'Máquina de Tatuagem (Coil)', 2, 'un', NULL, 1);
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Equipamentos', 'Máquina de Tatuagem (Rotativa)', 3, 'un', NULL, 1);
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Equipamentos', 'Fonte de Alimentação', 1, 'un', NULL, 1);
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Agulhas', 'Agulha Round Liner #3', 50, 'un', 1, 20);
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Agulhas', 'Agulha Round Liner #7', 15, 'un', 1, 20);
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Agulhas', 'Agulha Magnum #9', 30, 'un', 1, 10);
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Tintas', 'Tinta Preta (30ml)', 5, 'ml', 2.5, 2);
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Tintas', 'Tinta Vermelha (30ml)', 1, 'ml', 2.5, 2);
+INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
+VALUES ('Descartáveis', 'Luvas Nitrílicas (Cx 100un)', 10, 'cx', 1, 5);
+GO
+
+INSERT INTO Cliente (NOME_COMPLETO, EMAIL, TELEFONE, DATA_NASCIMENTO, OBSERVACOES)
+VALUES ('João Silva', 'joao.cliente@email.com', '(11) 99999-9999', '1990-05-15', 'Cliente regular, prefere estilo realista.');
+DECLARE @JoaoClienteId INT = SCOPE_IDENTITY();
+
+INSERT INTO Cliente (NOME_COMPLETO, EMAIL, TELEFONE, DATA_NASCIMENTO, OBSERVACOES)
+VALUES ('Maria Souza', 'maria.cliente@email.com', '(11) 98888-8888', '1985-08-22', 'Interessada em tatuagens coloridas. Tem alergia a alguns pigmentos.');
+DECLARE @MariaClienteId INT = SCOPE_IDENTITY();
+
+INSERT INTO Cliente (NOME_COMPLETO, EMAIL, TELEFONE, DATA_NASCIMENTO, OBSERVACOES)
+VALUES ('Carlos Oliveira', 'carlos.cliente@email.com', '(11) 97777-7777', '1992-12-10', NULL);
+DECLARE @CarlosClienteId INT = SCOPE_IDENTITY();
+
+INSERT INTO Cliente (NOME_COMPLETO, EMAIL, TELEFONE, DATA_NASCIMENTO, OBSERVACOES)
+VALUES ('Ana Pereira', 'ana.cliente@email.com', '(21) 96666-6666', '1995-03-01', 'Primeira tatuagem, um pouco nervosa.');
+DECLARE @AnaClienteId INT = SCOPE_IDENTITY();
+
+INSERT INTO Cliente (NOME_COMPLETO, EMAIL, TELEFONE, DATA_NASCIMENTO, OBSERVACOES)
+VALUES ('Pedro Almeida', 'pedro.cliente@email.com', '(11) 95555-5555', '1988-11-20', 'Ama temas geek, sempre busca algo diferente.');
+DECLARE @PedroClienteId INT = SCOPE_IDENTITY();
+GO
+
+INSERT INTO USUARIO (NOME_USUARIO, SOBRENOME_USUARIO, CPF_USUARIO, RG_USUARIO, DATA_NASC_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, STATUS_USUARIO, ULTIMO_LOGIN)
+VALUES ('Maria', 'Tatuador', '11122233344', '112233445', '1985-08-22', 'maria.tatuador', 'senha123', 'ATIVO', GETDATE());
+DECLARE @MariaTatuadorId INT = SCOPE_IDENTITY();
+INSERT INTO TATUADOR (ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR)
+VALUES (@MariaTatuadorId, 'Especialista em realismo preto e cinza.', '9602501');
+INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@MariaTatuadorId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Tatuador'));
+INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@MariaTatuadorId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Admin'));
+
+
+INSERT INTO USUARIO (NOME_USUARIO, SOBRENOME_USUARIO, CPF_USUARIO, RG_USUARIO, DATA_NASC_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, STATUS_USUARIO, ULTIMO_LOGIN)
+VALUES ('Carlos', 'Lima', '55566677788', '667788990', '1990-03-15', 'carlos.lima', 'senha123', 'ATIVO', GETDATE());
+DECLARE @CarlosTatuadorId INT = SCOPE_IDENTITY();
+INSERT INTO TATUADOR (ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR)
+VALUES (@CarlosTatuadorId, 'Foco em tatuagens tradicionais e coloridas.', '9602502');
+INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@CarlosTatuadorId, (SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = 'Tatuador'));
+GO
+
+INSERT INTO StatusAgendamento (NOME_STATUS) VALUES ('Pendente');
+INSERT INTO StatusAgendamento (NOME_STATUS) VALUES ('Confirmado');
+INSERT INTO StatusAgendamento (NOME_STATUS) VALUES ('Cancelado');
+GO
+
+INSERT INTO Agendamento (ID_CLIENTE, ID_TATUADOR, DATA_HORA_INICIO, DATA_HORA_FIM, ID_STATUS_AGENDAMENTO, TIPO_TATUAGEM, VALOR, OBSERVACOES)
+VALUES (
+    (SELECT TOP 1 ID_CLIENTE FROM Cliente WHERE EMAIL = 'joao.cliente@email.com'),
+    (SELECT TOP 1 ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'maria.tatuador'),
+    '2025-07-01 10:00:00',
+    '2025-07-01 12:00:00',
+    (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Confirmado'),
+    'Braço - Fênix pequena',
+    500.00,
+    'Cliente prefere cores vibrantes.'
+);
+
+INSERT INTO Agendamento (ID_CLIENTE, ID_TATUADOR, DATA_HORA_INICIO, DATA_HORA_FIM, ID_STATUS_AGENDAMENTO, TIPO_TATUAGEM, VALOR, OBSERVACOES)
+VALUES (
+    (SELECT TOP 1 ID_CLIENTE FROM Cliente WHERE EMAIL = 'ana.cliente@email.com'),
+    (SELECT TOP 1 ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'carlos.lima'),
+    '2025-07-02 14:00:00',
+    '2025-07-02 16:30:00',
+    (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Pendente'),
+    'Costas - Mandala geométrica',
+    850.00,
+    'Sessão inicial, design complexo.'
+);
+
+INSERT INTO Agendamento (ID_CLIENTE, ID_TATUADOR, DATA_HORA_INICIO, DATA_HORA_FIM, ID_STATUS_AGENDAMENTO, TIPO_TATUAGEM, VALOR, OBSERVACOES)
+VALUES (
+    (SELECT TOP 1 ID_CLIENTE FROM Cliente WHERE EMAIL = 'joao.cliente@email.com'),
+    (SELECT TOP 1 ID_USUARIO FROM USUARIO WHERE LOGIN_USUARIO = 'maria.tatuador'),
+    '2025-06-25 09:00:00',
+    '2025-06-25 11:00:00',
+    (SELECT ID_STATUS_AGENDAMENTO FROM StatusAgendamento WHERE NOME_STATUS = 'Cancelado'),
+    'Perna - Leão realista',
+    700.00,
+    'Cliente precisou reagendar por motivo de viagem.'
+);
+GO
+
 
 --==================================== PROCEDURES ===================================
 
@@ -172,7 +295,6 @@ BEGIN
 		WHERE LOGIN_USUARIO = @LOGIN AND SENHA_USUARIO = @SENHA;
 	END
 END;
-
 GO
 
 CREATE PROCEDURE STP_LOGIN_TATUADOR
@@ -202,32 +324,19 @@ BEGIN
 		WHERE LOGIN_USUARIO = @LOGIN AND SENHA_USUARIO = @SENHA;
 	END
 END;
-
 GO
 
 CREATE PROCEDURE STP_DELETA_USUARIO
 	@ID_USUARIO INT
 AS
 BEGIN
-	DELETE FROM PAGAMENTO
-	WHERE ID_TATUADOR = @ID_USUARIO;
-
-	DELETE FROM AGENDAMENTO
-	WHERE ID_TATUADOR = @ID_USUARIO;
-
-	DELETE FROM ARTE_TATUADOR
-	WHERE ID_TATUADOR = @ID_USUARIO;
-
-	DELETE FROM TATUADOR
-	WHERE ID_USUARIO = @ID_USUARIO;
-
-	DELETE FROM USUARIO_PAPEL
-	WHERE ID_USUARIO = @ID_USUARIO;
-
-	DELETE FROM USUARIO
-	WHERE ID_USUARIO = @ID_USUARIO;
-END
-
+	DELETE FROM PAGAMENTO WHERE ID_TATUADOR = @ID_USUARIO;
+	DELETE FROM Agendamento WHERE ID_TATUADOR = @ID_USUARIO;
+	DELETE FROM ARTE_TATUADOR WHERE ID_TATUADOR = @ID_USUARIO;
+	DELETE FROM TATUADOR WHERE ID_USUARIO = @ID_USUARIO;
+	DELETE FROM USUARIO_PAPEL WHERE ID_USUARIO = @ID_USUARIO;
+	DELETE FROM USUARIO WHERE ID_USUARIO = @ID_USUARIO;
+END;
 GO
 
 CREATE PROCEDURE STP_ATUALIZA_USUARIO
@@ -242,7 +351,7 @@ CREATE PROCEDURE STP_ATUALIZA_USUARIO
 AS
 BEGIN
 	UPDATE USUARIO
-	SET 
+	SET
 		NOME_USUARIO = @NOME_USUARIO,
 		SOBRENOME_USUARIO = @SOBRENOME_USUARIO,
 		DATA_NASC_USUARIO = @DATA_NASC_USUARIO,
@@ -252,52 +361,6 @@ BEGIN
 		SENHA_USUARIO = @SENHA_USUARIO
 	WHERE ID_USUARIO = @ID_USUARIO;
 END;
-
-CREATE TABLE EstoqueItem (
-    ID_EstoqueItem INT PRIMARY KEY IDENTITY(1,1),
-    Categoria VARCHAR(100) NOT NULL,
-    NomeItem VARCHAR(255) NOT NULL,
-    Quantidade INT NOT NULL,
-    Unidade VARCHAR(50) NOT NULL,
-    UsoPorSessao DECIMAL(10, 2) NULL,
-    EstoqueMinimo INT NOT NULL,
-    DataCriacao DATETIME DEFAULT GETDATE(),
-    DataAtualizacao DATETIME DEFAULT GETDATE()
-);
-GO
-
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Equipamentos', 'Máquina de Tatuagem (Coil)', 2, 'un', NULL, 1);
-
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Equipamentos', 'Máquina de Tatuagem (Rotativa)', 3, 'un', NULL, 1);
-
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Equipamentos', 'Fonte de Alimentação', 1, 'un', NULL, 1); -- Estoque Baixo (se for considerado)
-
--- Inserindo Agulhas
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Agulhas', 'Agulha Round Liner #3', 50, 'un', 1, 20);
-
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Agulhas', 'Agulha Round Liner #7', 15, 'un', 1, 20); -- Estoque Baixo
-
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Agulhas', 'Agulha Magnum #9', 30, 'un', 1, 10);
-
--- Inserindo Tintas
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Tintas', 'Tinta Preta (30ml)', 5, 'ml', 2.5, 2);
-
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Tintas', 'Tinta Vermelha (30ml)', 1, 'ml', 2.5, 2); -- Estoque Baixo
-
--- Inserindo Descartáveis
-INSERT INTO EstoqueItem (Categoria, NomeItem, Quantidade, Unidade, UsoPorSessao, EstoqueMinimo)
-VALUES ('Descartáveis', 'Luvas Nitrílicas (Cx 100un)', 10, 'cx', 1, 5);
-
-
-CREATE INDEX IX_EstoqueItem_CategoriaNome ON EstoqueItem (Categoria, NomeItem);
 GO
 
 CREATE PROCEDURE STP_CRIAR_USUARIO
@@ -310,38 +373,23 @@ CREATE PROCEDURE STP_CRIAR_USUARIO
 	@SENHA VARCHAR(200)
 AS
 BEGIN
-	-- Verifica se já existe um CPF cadastrado
 	IF EXISTS (SELECT 1 FROM USUARIO WHERE CPF_USUARIO = @CPF)
 	BEGIN
 		RAISERROR('CPF já cadastrado.', 16, 1);
 		RETURN;
 	END
 
-	-- Se passou, insere o novo usuário
 	INSERT INTO USUARIO (
 		NOME_USUARIO, SOBRENOME_USUARIO, DATA_NASC_USUARIO,
-		CPF_USUARIO, RG_USUARIO, LOGIN_USUARIO, SENHA_USUARIO
+		CPF_USUARIO, RG_USUARIO, LOGIN_USUARIO, SENHA_USUARIO,
+		STATUS_USUARIO, ULTIMO_LOGIN
 	)
 	VALUES (
 		@NOME, @SOBRENOME, @DATA_NASC,
-		@CPF, @RG, @LOGIN, @SENHA
-	)
+		@CPF, @RG, @LOGIN, @SENHA,
+		'ATIVO', GETDATE()
+	);
 
-	-- Retorna o usuário recém-criado
 	SELECT * FROM USUARIO WHERE ID_USUARIO = SCOPE_IDENTITY();
-END
-
-
-
---EXEC STP_LOGIN 'joao.silva', 'senha123'
---EXEC STP_RETORNA_FUNCIONALIDADES_USUARIO 1
---EXEC STP_DELETA_USUARIO 2
---EXEC sp_atualizar_usuario 
---	@ID_USUARIO = 1,
---	@NOME_USUARIO = 'Carlos',
---	@SOBRENOME_USUARIO = 'Moraes',
---	@DATA_NASC_USUARIO = '1991-01-01',
---	@CPF_USUARIO = '123.456.789-00',
---	@RG_USUARIO = '12.345.678-9',
---	@LOGIN_USUARIO = 'carlos.m',
---	@SENHA_USUARIO = 'novasenha456';
+END;
+GO
