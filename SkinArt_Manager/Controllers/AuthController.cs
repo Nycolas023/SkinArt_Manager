@@ -48,6 +48,32 @@ public class AuthController : ControllerBase
         return Unauthorized("Usuário ou senha inválidos");
     }
 
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequestDTO credenciais)
+    {
+        // Tenta primeiro como admin
+        var usuarioAdmin = await _usuarioService.GetLoginAdmin(credenciais);
+        if (usuarioAdmin != null &&
+            credenciais.LOGIN_USUARIO.Equals(usuarioAdmin.Usuario.LOGIN_USUARIO, StringComparison.OrdinalIgnoreCase) &&
+            credenciais.SENHA_USUARIO == usuarioAdmin.Usuario.SENHA_USUARIO)
+        {
+            usuarioAdmin.Token = TokenService.GenerateToken(usuarioAdmin);
+            return Ok(usuarioAdmin);
+        }
+
+        // Se não for admin, tenta como tatuador
+        var usuarioTatuador = await _usuarioService.GetLoginTatuador(credenciais);
+        if (usuarioTatuador != null &&
+            credenciais.LOGIN_USUARIO.Equals(usuarioTatuador.Usuario.LOGIN_USUARIO, StringComparison.OrdinalIgnoreCase) &&
+            credenciais.SENHA_USUARIO == usuarioTatuador.Usuario.SENHA_USUARIO)
+        {
+            usuarioTatuador.Token = TokenService.GenerateToken(usuarioTatuador);
+            return Ok(usuarioTatuador);
+        }
+
+        return Unauthorized("Usuário ou senha inválidos");
+    }
+
     [HttpGet("protegido")]
     [Authorize]
     public IActionResult Protegido()

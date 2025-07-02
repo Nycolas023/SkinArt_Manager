@@ -1,7 +1,10 @@
 import React from 'react';
 import './Header.css';
+import { useAuth } from '../../hooks/useAuth';
 
 function Header() {
+  const { logout } = useAuth();
+
   return (
     <header className="header">
       <div className="header-left">
@@ -25,6 +28,7 @@ function Header() {
           />
           <span>Usuário</span>
         </div>
+        <button onClick={logout} className="btn btn-primary">Sair</button>
       </div>
     </header>
   );

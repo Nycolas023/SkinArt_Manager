@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import './Sidebar.css';
 
-function Sidebar({ userRole, onLogout }) {
+function Sidebar({ userRole }) {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    onLogout();
+    logout();
     navigate('/');
   };
 
