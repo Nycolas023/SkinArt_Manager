@@ -153,6 +153,8 @@ namespace SkinArt_Manager.Data
                 DATA_NASC_USUARIO = usuario.DATA_NASC_USUARIO,
                 LOGIN_USUARIO = usuario.LOGIN_USUARIO,
                 SENHA_USUARIO = usuario.SENHA_USUARIO,
+                STATUS_USUARIO = usuario.STATUS_USUARIO, // Adicionado
+                ROLE_USUARIO = usuario.ROLE_USUARIO      // Adicionado
             };
 
             var resultados = await conn.ExecuteAsync(

@@ -83,12 +83,18 @@ namespace SkinArt_Manager.Controllers
         [HttpDelete("DeletaUsuario")]
         public async Task<IActionResult> DeletaUsuario(int idUsuario)
         {
-            DeleteUsuarioDTO usuario = new();
+            DeleteUsuarioDTO usuario = new()
+            {
+                ID_USUARIO = idUsuario
+            };
 
             var response = await usuarioService.DeleteUsuario(usuario);
 
-            if (response == null)
-                return NotFound();
+            if (response == null || !response.Contains("sucesso"))
+            {
+                return NotFound("Usuário não encontrado ou falha ao deletar.");
+            }
+            
             return Ok(response);
         }
     }

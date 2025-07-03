@@ -4,6 +4,7 @@ using SkinArt_Manager.DTOs;
 using SkinArt_Manager.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient; // Use este em vez de System.Data.SqlClient
 
 // ----> Comentário
 
@@ -42,17 +43,26 @@ public class ClienteController : ControllerBase
     public async Task<ActionResult<ClienteDTO>> AddCliente([FromBody] CriarClienteDTO newCliente)
     {
         if (!ModelState.IsValid)
-        {
             return BadRequest(ModelState);
-        }
 
-        var newId = await _clienteService.AddCliente(newCliente);
-        if (newId > 0)
+        try
         {
-            var createdCliente = await _clienteService.GetClienteById(newId);
-            return CreatedAtAction(nameof(GetCliente), new { id = newId }, createdCliente);
+            var newId = await _clienteService.AddCliente(newCliente);
+            if (newId > 0)
+            {
+                var createdCliente = await _clienteService.GetClienteById(newId);
+                return CreatedAtAction(nameof(GetCliente), new { id = newId }, createdCliente);
+            }
+            return BadRequest("Não foi possível adicionar o cliente.");
         }
-        return BadRequest("Não foi possível adicionar o cliente.");
+        catch (SqlException ex) when (ex.Message.Contains("UNIQUE KEY"))
+        {
+            return Conflict("Já existe um cliente cadastrado com este e-mail.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Erro interno: " + ex.Message);
+        }
     }
 
     [HttpPut("{id}")]

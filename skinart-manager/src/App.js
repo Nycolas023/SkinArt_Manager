@@ -6,6 +6,8 @@ import Login from './pages/Auth/Login';
 import Dashboard from './pages/Dashboard/Dashboard'; // ajuste o caminho se necessário
 import ClientManagement from './pages/Clients/ClientManagement'; // ajuste o caminho se necessário
 import ProtectedLayout from './components/Layout/ProtectedLayout'; // ajuste o caminho se necessário
+import Scheduling from './pages/Scheduling/Scheduling';
+import UserManagement from './pages/Users/UserManagement';
 
 // Componente principal da aplicação
 function AppContent() {
@@ -19,8 +21,8 @@ function AppContent() {
           user ? (
             <Navigate to="/dashboard" />
           ) : (
-            <Login onLogin={(data) => {
-              login(data.Token, data.Usuario); // Note o "T" maiúsculo em Token
+            <Login onLogin={(token, usuario) => {
+              login(token, usuario);
             }} />
           )
         }
@@ -43,6 +45,30 @@ function AppContent() {
           user ? (
             <ProtectedLayout>
               <ClientManagement />
+            </ProtectedLayout>
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      />
+      <Route
+        path="/agendamentos"
+        element={
+          user ? (
+            <ProtectedLayout>
+              <Scheduling userRole={user?.papel || user?.role} />
+            </ProtectedLayout>
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      />
+      <Route
+        path="/usuarios"
+        element={
+          user ? (
+            <ProtectedLayout>
+              <UserManagement />
             </ProtectedLayout>
           ) : (
             <Navigate to="/" />

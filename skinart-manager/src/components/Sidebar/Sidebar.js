@@ -1,95 +1,61 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
-function Sidebar({ userRole }) {
-  const navigate = useNavigate();
-  const { logout } = useAuth();
+function Sidebar() {
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    window.location.href = '/';
   };
 
+  // Menus por papel
+  const menuAdmin = [
+    { label: 'Dashboard', path: '/dashboard', icon: 'fas fa-home' },
+    { label: 'Clientes', path: '/clientes', icon: 'fas fa-users' },
+    { label: 'Agendamentos', path: '/agendamentos', icon: 'fas fa-calendar' },
+    { label: 'Ordens de Serviço', path: '/ordensDeServico', icon: 'fas fa-file-alt' },
+    { label: 'Financeiro', path: '/financeiro', icon: 'fas fa-dollar-sign' },
+    { label: 'Portfólio', path: '/portfolio', icon: 'fas fa-image' },
+    { label: 'Estoque', path: '/estoque', icon: 'fas fa-boxes' },
+    { label: 'Usuários', path: '/usuarios', icon: 'fas fa-user-cog' },
+  ];
+
+  const menuTatuador = [
+    { label: 'Dashboard', path: '/dashboard', icon: 'fas fa-home' },
+    { label: 'Agendamentos', path: '/agendamentos', icon: 'fas fa-calendar' },
+    { label: 'Portfólio', path: '/portfolio', icon: 'fas fa-image' },
+  ];
+
+  let papel = (user?.papel || user?.NOME_PAPEL || user?.role || '').toLowerCase();
+  let menu = menuTatuador;
+  if (papel === 'admin') menu = menuAdmin;
+
   return (
-    <div className="sidebar">
+    <nav className="sidebar">
       <div className="sidebar-brand">
-        <h3>Studio Tattoo</h3>
+        <h3>SkinArt</h3>
       </div>
-      
       <div className="sidebar-menu">
         <ul>
-          <li>
-            <Link to="/dashboard">
-              <i className="fas fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-            </Link>
-          </li>
-          
-          <li>
-            <Link to="/clientes">
-              <i className="fas fa-users"></i>
-              <span>Clientes</span>
-            </Link>
-          </li>
-          
-          <li>
-            <Link to="/agendamentos">
-              <i className="fas fa-calendar-alt"></i>
-              <span>Agendamentos</span>
-            </Link>
-          </li>
-          
-          <li>
-            <Link to="/ordens-servico">
-              <i className="fas fa-file-alt"></i>
-              <span>Ordens de Serviço</span>
-            </Link>
-          </li>
-          
-          {(userRole === 'admin' || userRole === 'recepcao') && (
-            <li>
-              <Link to="/financeiro">
-                <i className="fas fa-money-bill-wave"></i>
-                <span>Financeiro</span>
+          {menu.map((item) => (
+            <li key={item.path}>
+              <Link to={item.path}>
+                <i className={item.icon}></i>
+                {item.label}
               </Link>
             </li>
-          )}
-          
-          <li>
-            <Link to="/portfolio">
-              <i className="fas fa-images"></i>
-              <span>Portfólio</span>
-            </Link>
-          </li>
-          
-          {(userRole === 'admin' || userRole === 'recepcao') && (
-            <li>
-              <Link to="/estoque">
-                <i className="fas fa-boxes"></i>
-                <span>Estoque</span>
-              </Link>
-            </li>
-          )}
-          
-          {userRole === 'admin' && (
-            <li>
-              <Link to="/usuarios">
-                <i className="fas fa-user-cog"></i>
-                <span>Usuários</span>
-              </Link>
-            </li>
-          )}
+          ))}
         </ul>
       </div>
-      
       <div className="sidebar-footer">
         <button onClick={handleLogout} className="btn btn-secondary btn-block">
           <i className="fas fa-sign-out-alt"></i> Sair
         </button>
       </div>
-    </div>
+    </nav>
   );
 }
 

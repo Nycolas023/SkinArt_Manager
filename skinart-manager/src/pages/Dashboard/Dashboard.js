@@ -2,24 +2,15 @@ import React from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import './Dashboard.css';
 
-function Header() {
-  const { logout } = useAuth();
-
-  return (
-    <header>
-      <button onClick={logout}>Sair</button>
-    </header>
-  );
-}
 
 function Dashboard() {
   const { user } = useAuth();
 
   return (
     <div className="dashboard-container">
-      <Header />
-      <h1>Bem-vindo, {user?.nome || user?.name}!</h1>
-      <p>Sua função: {user?.papel || user?.role}</p>
+     
+      <h1>Olá, {user?.name || user?.nome || "Usuário"}!</h1>
+      <p>Sua função: {user?.role || user?.papel || "Padrão"}</p>
       
       <div className="dashboard">
         <h3 className="page-title">Dashboard</h3>
@@ -76,7 +67,7 @@ function Dashboard() {
                   <th>Tatuador</th>
                   <th>Horário</th>
                   <th>Tipo</th>
-                  <th>Ações</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>

@@ -3,7 +3,7 @@ import './Header.css';
 import { useAuth } from '../../hooks/useAuth';
 
 function Header() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <header className="header">
@@ -11,14 +11,11 @@ function Header() {
         <button className="btn btn-secondary">
           <i className="fas fa-bars"></i>
         </button>
-        <h4>Dashboard</h4>
+        <h4>SkinArt no Header</h4>
       </div>
       
       <div className="header-right">
-        <div className="notification">
-          <i className="fas fa-bell"></i>
-          <span className="badge">3</span>
-        </div>
+        
         
         <div className="user-profile">
           <img 

@@ -12,54 +12,55 @@ function Login({ onLogin }) {
 
     const testUsers = [
         {
-            email: 'admin@studiopiercing.com',
+            email: 'admin01',
             password: 'admin123',
             role: 'admin',
             name: 'Administrador'
         },
         {
-            email: 'tatuador@studiopiercing.com',
+            email: 'tatuador01',
             password: 'tattoo123',
             role: 'tatuador',
             name: 'Tatuador Principal'
         },
-        {
-            email: 'recepcao@studiopiercing.com',
-            password: 'recep123',
-            role: 'recepcao',
-            name: 'Atendente'
-        }
+        
     ];
+
+    const handleLogin = async (credentials) => {
+        try {
+            const response = await fetch('https://localhost:5273/api/Auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credentials)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                // Armazene o token no localStorage
+                localStorage.setItem('token', data.Token);
+                console.log('Token armazenado:', data.Token); // Para debug
+                // Redirecione para o dashboard ou página principal
+                onLogin(data.Token, data.Usuario);
+            } else {
+                throw new Error('Credenciais inválidas');
+            }
+        } catch (error) {
+            console.error('Erro no login:', error);
+            setError(error.message || 'Erro ao conectar com o servidor');
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setIsLoading(true);
 
-        try {
-            const response = await fetch('https://localhost:5273/api/Auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    LOGIN_USUARIO: username,
-                    SENHA_USUARIO: password
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error('Credenciais inválidas');
-            }
-
-            const data = await response.json();
-            onLogin(data);
-
-        } catch (err) {
-            setError(err.message || 'Erro ao conectar com o servidor');
-        } finally {
-            setIsLoading(false);
-        }
+        await handleLogin({
+            LOGIN_USUARIO: username,
+            SENHA_USUARIO: password
+        });
     };
 
     const handleTestLogin = (testUser) => {
