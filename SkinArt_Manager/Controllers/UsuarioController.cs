@@ -29,11 +29,14 @@ namespace SkinArt_Manager.Controllers
         [HttpPost("CriaUsuario")]
         public async Task<IActionResult> CriaUsuario([FromBody] CreateUsuarioDTO usuario)
         {
+            // Adicionando o tipo de usuário diretamente no DTO antes de chamar o método
+            usuario.DESCRICAO_TATUADOR = "Tatuador";
+
             var novoUsuario = await usuarioService.CreateUsuario(usuario);
+            // ...
 
             if (novoUsuario != null)
             {
-                // Removido: associação automática de papel
                 return Ok(novoUsuario);
             }
 

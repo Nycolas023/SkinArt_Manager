@@ -34,6 +34,6 @@ namespace SkinArt_Manager.DTOs
         public decimal Valor { get; set; }
 
         [MaxLength(4000, ErrorMessage = "As observações não podem exceder 4000 caracteres.")]
-        public string? Observacoes { get; set; }
+        public string? Observacoes { get; set; } = "";
     }
 }

@@ -219,6 +219,19 @@ namespace SkinArt_Manager.Data
                 new { ID_USUARIO = primeiro.ID_USUARIO, ID_PAPEL = papelId }
             );
 
+            if (nomePapel == "Tatuador")
+            {
+                await conn.ExecuteAsync(
+                    "INSERT INTO TATUADOR (ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR) VALUES (@ID_USUARIO, @DESCRICAO_TATUADOR, @CNAE_FORMACAO_TATUADOR)",
+                    new
+                    {
+                        ID_USUARIO = primeiro.ID_USUARIO,
+                        DESCRICAO_TATUADOR = usuario.DESCRICAO_TATUADOR ?? "Tatuador do estúdio",
+                        CNAE_FORMACAO_TATUADOR = usuario.CNAE_FORMACAO_TATUADOR ?? "9602501"
+                    }
+                );
+            }
+
             return new Usuario
             {
                 ID_USUARIO = primeiro.ID_USUARIO,

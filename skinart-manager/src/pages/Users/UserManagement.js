@@ -112,7 +112,9 @@ const UserManagement = () => {
           SENHA_USUARIO: `${firstName.toLowerCase()}123`,
           DATA_NASC_USUARIO: new Date().toISOString(),
           CPF_USUARIO: formData.get('cpf'),    // Campo adicionado
-          RG_USUARIO: formData.get('rg')      // Campo adicionado
+          RG_USUARIO: formData.get('rg'),     // Campo adicionado
+          DESCRICAO_TATUADOR: "Tatuador do estúdio", // ou um campo do formulário
+          CNAE_FORMACAO_TATUADOR: "9602501" // ou um campo do formulário
         };
 
         // Enviar para o backend

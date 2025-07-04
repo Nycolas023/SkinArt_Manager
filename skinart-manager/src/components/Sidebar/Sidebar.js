@@ -16,7 +16,7 @@ function Sidebar() {
     { label: 'Dashboard', path: '/dashboard', icon: 'fas fa-home' },
     { label: 'Clientes', path: '/clientes', icon: 'fas fa-users' },
     { label: 'Agendamentos', path: '/agendamentos', icon: 'fas fa-calendar' },
-    { label: 'Ordens de Serviço', path: '/ordensDeServico', icon: 'fas fa-file-alt' },
+    { label: 'Ordens de Serviço', path: '/ordens-servico', icon: 'fas fa-file-alt' },
     { label: 'Financeiro', path: '/financeiro', icon: 'fas fa-dollar-sign' },
     { label: 'Portfólio', path: '/portfolio', icon: 'fas fa-image' },
     { label: 'Estoque', path: '/estoque', icon: 'fas fa-boxes' },

@@ -14,8 +14,8 @@
   flex-shrink: 0;
   width: 220px; /* Um pouco menor para dar mais espaço ao dashboard */
   height: 100vh;
-  position: relative;
-  z-index: 1;
+  position: fixed;
+  z-index: 10;
   margin: 0;
   padding: 0;
   top: 0;
@@ -32,6 +32,7 @@
   overflow-y: auto;
   width: calc(100% - 220px); /* Garante que ocupe o restante do espaço */
   box-sizing: border-box;
+  margin-left: 220px;
 }
 
 /* Media query para telas menores */
