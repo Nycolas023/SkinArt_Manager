@@ -30,7 +30,7 @@ const UserManagement = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('https://localhost:5273/api/Usuario/RetornaTodosUsuarios', {
+        const response = await fetch('https://localhost:5000/api/Usuario/RetornaTodosUsuarios', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -116,7 +116,7 @@ const UserManagement = () => {
         };
 
         // Enviar para o backend
-        const response = await fetch('https://localhost:5273/api/Usuario/CriaUsuario', {
+        const response = await fetch('https://localhost:5000/api/Usuario/CriaUsuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -164,7 +164,7 @@ const UserManagement = () => {
           ROLE_USUARIO: formData.get('role') // Enviando tipo/role
         };
 
-        const response = await fetch('https://localhost:5273/api/Usuario/EditarUsuario', {
+        const response = await fetch('https://localhost:5000/api/Usuario/EditarUsuario', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -195,7 +195,7 @@ const UserManagement = () => {
   const handleDeleteUser = async (userId) => {
     if (window.confirm('Tem certeza que deseja remover este usuário?')) {
       try {
-        const response = await fetch(`https://localhost:5273/api/Usuario/DeletaUsuario?idUsuario=${userId}`, {
+        const response = await fetch(`https://localhost:5000/api/Usuario/DeletaUsuario?idUsuario=${userId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`

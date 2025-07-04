@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Auth/Login';
-import Dashboard from './pages/Dashboard/Dashboard'; // ajuste o caminho se necessário
-import ClientManagement from './pages/Clients/ClientManagement'; // ajuste o caminho se necessário
-import ProtectedLayout from './components/Layout/ProtectedLayout'; // ajuste o caminho se necessário
+import Dashboard from './pages/Dashboard/Dashboard';
+import ClientManagement from './pages/Clients/ClientManagement';
+import ProtectedLayout from './components/Layout/ProtectedLayout';
 import Scheduling from './pages/Scheduling/Scheduling';
 import UserManagement from './pages/Users/UserManagement';
 
-// Componente principal da aplicação
 function AppContent() {
   const { user, login } = useAuth();
-  
+
+  useEffect(() => {
+    console.log("Estado de autenticação:", !!user);
+  }, [user]);
+
   return (
     <Routes>
       <Route
         path="/"
         element={
           user ? (
-            <Navigate to="/dashboard" />
+            <Navigate to="/dashboard" replace />
           ) : (
             <Login onLogin={(token, usuario) => {
               login(token, usuario);
@@ -35,7 +38,7 @@ function AppContent() {
               <Dashboard />
             </ProtectedLayout>
           ) : (
-            <Navigate to="/" />
+            <Navigate to="/" replace />
           )
         }
       />
@@ -47,7 +50,7 @@ function AppContent() {
               <ClientManagement />
             </ProtectedLayout>
           ) : (
-            <Navigate to="/" />
+            <Navigate to="/" replace />
           )
         }
       />
@@ -59,7 +62,7 @@ function AppContent() {
               <Scheduling userRole={user?.papel || user?.role} />
             </ProtectedLayout>
           ) : (
-            <Navigate to="/" />
+            <Navigate to="/" replace />
           )
         }
       />
@@ -71,7 +74,7 @@ function AppContent() {
               <UserManagement />
             </ProtectedLayout>
           ) : (
-            <Navigate to="/" />
+            <Navigate to="/" replace />
           )
         }
       />

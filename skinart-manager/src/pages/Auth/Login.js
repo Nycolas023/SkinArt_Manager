@@ -19,16 +19,15 @@ function Login({ onLogin }) {
         },
         {
             email: 'tatuador01',
-            password: 'tattoo123',
+            password: 'tatuador123',
             role: 'tatuador',
             name: 'Tatuador Principal'
         },
-        
     ];
 
     const handleLogin = async (credentials) => {
         try {
-            const response = await fetch('https://localhost:5273/api/Auth/login', {
+            const response = await fetch('https://localhost:5000/api/Auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(credentials)

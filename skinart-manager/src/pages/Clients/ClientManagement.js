@@ -6,6 +6,7 @@ function ClientManagement({ userRole }) {
     const [showModal, setShowModal] = useState(false);
     const [currentClient, setCurrentClient] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [refreshTrigger, setRefreshTrigger] = useState(0); // Adicione este estado para forçar recarregamentos
     const [form, setForm] = useState({
         NomeCompleto: '',
         Email: '',
@@ -18,7 +19,8 @@ function ClientManagement({ userRole }) {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await fetch('https://localhost:5273/api/Cliente', {
+                console.log("Buscando clientes do backend..."); // Log adicionado
+                const response = await fetch('https://localhost:5000/api/Cliente', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -26,6 +28,7 @@ function ClientManagement({ userRole }) {
 
                 if (response.ok) {
                     const data = await response.json();
+                    console.log("Clientes recebidos:", data); // Log adicionado
                     setClients(data);
                 } else {
                     console.error('Erro ao carregar clientes:', response.status);
@@ -36,7 +39,7 @@ function ClientManagement({ userRole }) {
         };
 
         fetchClients();
-    }, []);
+    }, [refreshTrigger]); // Adicione refreshTrigger como dependência
 
     // Preencher formulário ao editar
     useEffect(() => {
@@ -72,7 +75,7 @@ function ClientManagement({ userRole }) {
         }
         if (window.confirm('Tem certeza que deseja excluir este cliente?')) {
             try {
-                const response = await fetch(`https://localhost:5273/api/Cliente/${id}`, {
+                const response = await fetch(`https://localhost:5000/api/Cliente/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -80,6 +83,8 @@ function ClientManagement({ userRole }) {
                 });
 
                 if (response.ok) {
+                    setRefreshTrigger(prev => prev + 1); // Atualização adicionada
+                    // A linha abaixo pode ser mantida para uma resposta mais rápida na UI
                     setClients(clients.filter(client => client.Id !== id));
                 } else {
                     alert('Erro ao excluir cliente');
@@ -102,8 +107,8 @@ function ClientManagement({ userRole }) {
         // Define o método e URL apropriados baseados em criação ou edição
         const method = currentClient ? 'PUT' : 'POST';
         const url = currentClient
-            ? `https://localhost:5273/api/Cliente/${currentClient.Id}`
-            : 'https://localhost:5273/api/Cliente';
+            ? `https://localhost:5000/api/Cliente/${currentClient.Id}`
+            : 'https://localhost:5000/api/Cliente';
 
         // Prepara o DTO adequado para cada operação
         const clienteDTO = currentClient
@@ -134,13 +139,8 @@ function ClientManagement({ userRole }) {
             });
 
             if (response.ok) {
-                const fetchClients = async () => {
-                    const res = await fetch('https://localhost:5273/api/Cliente', {
-                        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-                    });
-                    if (res.ok) setClients(await res.json());
-                };
-                fetchClients();
+                // Em vez de chamar fetchClients, atualize o trigger
+                setRefreshTrigger(prev => prev + 1);
                 setShowModal(false);
             } else {
                 let errorMsg = '';

@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using SkinArt_Manager.DTOs;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 
 // ----> Comentário
@@ -43,12 +44,25 @@ namespace SkinArt_Manager.Data
         public async Task<int> AddCliente(CriarClienteDTO newCliente)
         {
             using var conn = new SqlConnection(_connectionString);
-            string sql = @"
-                INSERT INTO Cliente (NOME_COMPLETO, EMAIL, TELEFONE, DATA_NASCIMENTO, OBSERVACOES)
-                VALUES (@NomeCompleto, @Email, @Telefone, @DataNascimento, @Observacoes);
-                SELECT CAST(SCOPE_IDENTITY() as int);"; // Retorna o ID do cliente recém-criado
+            var sql = "stp_inserir_cliente";
 
-            return await conn.ExecuteScalarAsync<int>(sql, newCliente);
+            var parametros = new
+            {
+                NOME_COMPLETO = newCliente.NomeCompleto,
+                EMAIL = newCliente.Email,
+                TELEFONE = newCliente.Telefone,
+                DATA_NASCIMENTO = newCliente.DataNascimento,
+                OBSERVACOES = newCliente.Observacoes
+            };
+
+            // CORREÇÃO: Usar ExecuteScalarAsync para obter o ID retornado pela procedure.
+            var newId = await conn.ExecuteScalarAsync<int>(
+                sql,
+                parametros,
+                commandType: CommandType.StoredProcedure
+            );
+
+            return newId;
         }
 
         public async Task<bool> UpdateCliente(AtualizarClienteDTO updatedCliente)

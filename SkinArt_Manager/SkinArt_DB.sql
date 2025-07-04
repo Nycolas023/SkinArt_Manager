@@ -1,16 +1,16 @@
-USE master;
-GO
+--USE master;
+--GO
+------------------------------------------------------------------------
+--IF EXISTS (SELECT name FROM sys.databases WHERE name = 'SKINART')
+--BEGIN
+   -- ALTER DATABASE SKINART SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+   -- DROP DATABASE SKINART;
+--END
+--GO
 
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'SKINART')
-BEGIN
-    ALTER DATABASE SKINART SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE SKINART;
-END
-GO
-
-CREATE DATABASE SKINART;
-GO
-
+--CREATE DATABASE SKINART;
+--GO
+------------------------------------------------------------------------
 USE SKINART;
 GO
 
@@ -350,7 +350,9 @@ CREATE PROCEDURE STP_ATUALIZA_USUARIO
     @CPF_USUARIO VARCHAR(14),
     @RG_USUARIO VARCHAR(15),
     @LOGIN_USUARIO VARCHAR(200),
-    @SENHA_USUARIO VARCHAR(200)
+    @SENHA_USUARIO VARCHAR(200),
+    @STATUS_USUARIO VARCHAR(20),   -- Adicionado
+    @ROLE_USUARIO VARCHAR(20)      -- Adicionado
 AS
 BEGIN
     UPDATE USUARIO
@@ -361,7 +363,9 @@ BEGIN
         CPF_USUARIO = @CPF_USUARIO,
         RG_USUARIO = @RG_USUARIO,
         LOGIN_USUARIO = @LOGIN_USUARIO,
-        SENHA_USUARIO = @SENHA_USUARIO
+        SENHA_USUARIO = @SENHA_USUARIO,
+        STATUS_USUARIO = @STATUS_USUARIO,
+        ROLE_USUARIO = @ROLE_USUARIO
     WHERE ID_USUARIO = @ID_USUARIO;
 END;
 GO
@@ -533,5 +537,34 @@ BEGIN
         SUM(CASE WHEN TIPO_TRANSACAO = 'Receita' THEN VALOR ELSE 0 END) -
         SUM(CASE WHEN TIPO_TRANSACAO = 'Despesa' THEN VALOR ELSE 0 END) AS Lucro
     FROM TransacaoFinanceira;
+END;
+GO
+
+-------------------------------------------------------------------------------
+-- PROCEDURES DE CLIENTES
+-------------------------------------------------------------------------------
+CREATE OR ALTER PROCEDURE stp_inserir_cliente
+    @NOME_COMPLETO VARCHAR(255),
+    @EMAIL VARCHAR(255),
+    @TELEFONE VARCHAR(20),
+    @DATA_NASCIMENTO DATE,
+    @OBSERVACOES NVARCHAR(MAX)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM Cliente WHERE EMAIL = @EMAIL)
+    BEGIN
+        RAISERROR('E-mail já cadastrado para outro cliente.', 16, 1);
+        RETURN;
+    END
+
+    INSERT INTO Cliente (
+        NOME_COMPLETO, EMAIL, TELEFONE, DATA_NASCIMENTO, OBSERVACOES, DATA_ATUALIZACAO
+    )
+    VALUES (
+        @NOME_COMPLETO, @EMAIL, @TELEFONE, @DATA_NASCIMENTO, @OBSERVACOES, GETDATE()
+    );
+
+    -- CORREÇÃO: Retornar o ID do cliente recém-criado
+    SELECT CAST(SCOPE_IDENTITY() AS INT);
 END;
 GO

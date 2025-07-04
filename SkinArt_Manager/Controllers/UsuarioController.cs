@@ -27,13 +27,17 @@ namespace SkinArt_Manager.Controllers
 
         [Authorize]
         [HttpPost("CriaUsuario")]
-        public async Task<IActionResult> CriarUsuario([FromBody] CreateUsuarioDTO usuario)
-        { 
-            var response = await usuarioService.CreateUsuario(usuario);
+        public async Task<IActionResult> CriaUsuario([FromBody] CreateUsuarioDTO usuario)
+        {
+            var novoUsuario = await usuarioService.CreateUsuario(usuario);
 
-            if (response == null)
-                return BadRequest("Erro ao criar usuário.");
-            return Ok(response);
+            if (novoUsuario != null)
+            {
+                // Removido: associação automática de papel
+                return Ok(novoUsuario);
+            }
+
+            return BadRequest("Falha ao criar usuário");
         }
 
         [Authorize]
