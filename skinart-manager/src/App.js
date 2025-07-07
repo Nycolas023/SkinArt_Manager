@@ -23,6 +23,7 @@ function AppContent() {
 
   return (
     <div className="main-content">
+      {user && <Sidebar />}
       <Routes>
         <Route
           path="/"
@@ -109,7 +110,6 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <Sidebar />
         <div className="app">
           <AppContent />
         </div>

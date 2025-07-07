@@ -22,7 +22,17 @@ function Inventory() {
   useEffect(() => {
     fetch('/api/estoque')
       .then(res => res.json())
-      .then(data => setInventory(data))
+      .then(data => setInventory(
+        data.map(item => ({
+          id: item.Id ?? item.id,
+          name: item.NomeItem ?? item.nomeItem ?? item.name,
+          category: item.Categoria ?? item.categoria ?? item.category,
+          quantity: item.Quantidade ?? item.quantidade ?? item.quantity,
+          minStock: item.EstoqueMinimo ?? item.estoqueMinimo ?? item.minStock,
+          unit: item.Unidade ?? item.unidade ?? item.unit,
+          usagePerSession: item.UsoPorSessao ?? item.usoPorSessao ?? item.usagePerSession
+        }))
+      ))
       .catch(() => setInventory([]));
 
     fetch('/api/estoque/categorias')
@@ -35,16 +45,29 @@ function Inventory() {
   const refreshInventory = () => {
     fetch('/api/estoque')
       .then(res => res.json())
-      .then(data => setInventory(data));
+      .then(data => setInventory(
+        data.map(item => ({
+          id: item.Id ?? item.id,
+          name: item.NomeItem ?? item.nomeItem ?? item.name,
+          category: item.Categoria ?? item.categoria ?? item.category,
+          quantity: item.Quantidade ?? item.quantidade ?? item.quantity,
+          minStock: item.EstoqueMinimo ?? item.estoqueMinimo ?? item.minStock,
+          unit: item.Unidade ?? item.unidade ?? item.unit,
+          usagePerSession: item.UsoPorSessao ?? item.usoPorSessao ?? item.usagePerSession
+        }))
+      ));
     fetch('/api/estoque/categorias')
       .then(res => res.json())
       .then(data => setCategories(data));
   };
 
-  // Corrigido: Mostra todos os itens quando "Todos" está selecionado
-  const filteredInventory = selectedCategory === 'Todos'
-    ? inventory
-    : inventory.filter(item => item.category === selectedCategory && (!showLowStock || item.quantity <= item.minStock));
+  const filteredInventory = inventory.filter(item => {
+    // Filtro por categoria
+    const categoryMatch = selectedCategory === 'Todos' || item.category === selectedCategory;
+    // Filtro por baixo estoque
+    const lowStockMatch = !showLowStock || item.quantity <= item.minStock;
+    return categoryMatch && lowStockMatch;
+  });
 
   const calculateSessionsLeft = (item) => {
     if (item.usagePerSession <= 0) return 'N/A';
@@ -82,22 +105,26 @@ function Inventory() {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
+      const dto = {
+        Id: editingItem.id,
+        Categoria: formData.category,
+        NomeItem: formData.name,
+        Quantidade: formData.quantity,
+        Unidade: formData.unit,
+        UsoPorSessao: formData.usagePerSession,
+        EstoqueMinimo: formData.minStock
+      };
       const response = await fetch(`/api/estoque/${editingItem.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: editingItem.id,
-          categoria: formData.category,
-          nomeItem: formData.name,
-          quantidade: formData.quantity,
-          unidade: formData.unit,
-          usoPorSessao: formData.usagePerSession,
-          estoqueMinimo: formData.minStock
-        })
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        body: JSON.stringify(dto)
       });
       if (response.ok) {
         refreshInventory();
         handleCloseModal();
+      } else {
+        const error = await response.text();
+        alert('Erro ao salvar item: ' + error);
       }
     } catch (err) {
       alert('Erro ao salvar item.');
@@ -107,12 +134,12 @@ function Inventory() {
   const handleAdd = async (e) => {
     e.preventDefault();
     const dto = {
-      categoria: formData.category,
-      nomeItem: formData.name,
-      quantidade: formData.quantity,
-      unidade: formData.unit,
-      usoPorSessao: formData.usagePerSession,
-      estoqueMinimo: formData.minStock
+      Categoria: formData.category,
+      NomeItem: formData.name,
+      Quantidade: formData.quantity,
+      Unidade: formData.unit,
+      UsoPorSessao: formData.usagePerSession,
+      EstoqueMinimo: formData.minStock
     };
     try {
       const response = await fetch('/api/estoque', {

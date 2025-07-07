@@ -11,22 +11,10 @@ function Header() {
         <button className="btn btn-secondary">
           <i className="fas fa-bars"></i>
         </button>
-        <h4>SkinArt no Header</h4>
+        <h4>SkinArt Manager</h4>
       </div>
       
-      <div className="header-right">
-        
-        
-        <div className="user-profile">
-          <img 
-            src="https://ui-avatars.com/api/?name=Usuario&background=random" 
-            alt="Usuário" 
-            className="avatar"
-          />
-          <span>Usuário</span>
-        </div>
-        <button onClick={logout} className="btn btn-primary">Sair</button>
-      </div>
+      
     </header>
   );
 }
