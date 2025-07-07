@@ -14,6 +14,16 @@ builder.Services.AddScoped<UsuarioRepository>();
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<EstoqueRepository>();
 builder.Services.AddScoped<EstoqueService>();
+builder.Services.AddScoped<AgendamentoRepository>();
+builder.Services.AddScoped<AgendamentoService>();
+builder.Services.AddScoped<ClienteRepository>();
+builder.Services.AddScoped<ClienteService>();
+
+builder.Services.AddScoped<FinanceiroRepository>();
+builder.Services.AddScoped<FinanceiroService>();
+
+builder.Services.AddScoped<OrdemServicoRespository>();
+builder.Services.AddScoped<OrdemServicoService>();
 
 
 builder.Services.AddControllers()
