@@ -17,6 +17,7 @@ namespace SkinArt_Manager.Data
             using var conn = new SqlConnection(_connectionString);
             string sql = "SELECT * FROM Usuario";
 
+
             var response = await conn.QueryAsync<Usuario>(sql);
 
             if (!response.Any()) return null;
@@ -152,8 +153,6 @@ namespace SkinArt_Manager.Data
                 DATA_NASC_USUARIO = usuario.DATA_NASC_USUARIO,
                 LOGIN_USUARIO = usuario.LOGIN_USUARIO,
                 SENHA_USUARIO = usuario.SENHA_USUARIO,
-                STATUS_USUARIO = usuario.STATUS_USUARIO, // Adicionado
-                ROLE_USUARIO = usuario.ROLE_USUARIO      // Adicionado
             };
 
             var resultados = await conn.ExecuteAsync(
@@ -183,7 +182,7 @@ namespace SkinArt_Manager.Data
             return resultados > 0 ? "Usuário deletado com sucesso" : "Falha ao alterar o usuário";
         }
 
-        public async Task<Usuario?> CreateUsuario(CreateUsuarioDTO usuario, string nomePapel = "Tatuador")
+        public async Task<Usuario?> CreateUsuario(CreateUsuarioDTO usuario)
         {
             using var conn = new SqlConnection(_connectionString);
 
@@ -208,30 +207,6 @@ namespace SkinArt_Manager.Data
 
             var primeiro = resultados.First();
 
-            // Vincula o papel ao usuário recém-criado
-            var papelId = await conn.QuerySingleAsync<int>(
-                "SELECT ID_PAPEL FROM PAPEL WHERE NOME_PAPEL = @NOME_PAPEL",
-                new { NOME_PAPEL = nomePapel }
-            );
-
-            await conn.ExecuteAsync(
-                "INSERT INTO USUARIO_PAPEL (ID_USUARIO, ID_PAPEL) VALUES (@ID_USUARIO, @ID_PAPEL)",
-                new { ID_USUARIO = primeiro.ID_USUARIO, ID_PAPEL = papelId }
-            );
-
-            if (nomePapel == "Tatuador")
-            {
-                await conn.ExecuteAsync(
-                    "INSERT INTO TATUADOR (ID_USUARIO, DESCRICAO_TATUADOR, CNAE_FORMACAO_TATUADOR) VALUES (@ID_USUARIO, @DESCRICAO_TATUADOR, @CNAE_FORMACAO_TATUADOR)",
-                    new
-                    {
-                        ID_USUARIO = primeiro.ID_USUARIO,
-                        DESCRICAO_TATUADOR = usuario.DESCRICAO_TATUADOR ?? "Tatuador do estúdio",
-                        CNAE_FORMACAO_TATUADOR = usuario.CNAE_FORMACAO_TATUADOR ?? "9602501"
-                    }
-                );
-            }
-
             return new Usuario
             {
                 ID_USUARIO = primeiro.ID_USUARIO,
@@ -246,6 +221,7 @@ namespace SkinArt_Manager.Data
                 ULTIMO_LOGIN = primeiro.ULTIMO_LOGIN
             };
         }
+
     }
 }
 
