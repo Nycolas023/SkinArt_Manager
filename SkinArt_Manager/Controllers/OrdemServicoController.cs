@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SkinArt_Manager.DTOs.OrdemServicoDTO;
 using SkinArt_Manager.Services;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SkinArt_Manager.Controllers
 {

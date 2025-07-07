@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.AgendamentoDTO;
 using SkinArt_Manager.Services;
-
-// ----> Comentário
 
 [ApiController]
 [Route("api/[controller]")]

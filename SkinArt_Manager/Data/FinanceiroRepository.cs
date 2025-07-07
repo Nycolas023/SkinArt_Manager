@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using SkinArt_Manager.DTOs;
 using SkinArt_Manager.DTOs.FinanceiroDTO;
 using System.Data;
 

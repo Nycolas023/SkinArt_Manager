@@ -1,6 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-
-namespace SkinArt_Manager
+﻿namespace SkinArt_Manager
 {
     public class Configuration
     {

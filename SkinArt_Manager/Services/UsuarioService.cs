@@ -1,11 +1,9 @@
 ﻿using SkinArt_Manager.Data;
 using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Models;
-using System.Text;
 
 namespace SkinArt_Manager.Services
 {
-    // ----> Comentário
     public class UsuarioService
     {
         private readonly UsuarioRepository repository;

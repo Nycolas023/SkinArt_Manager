@@ -1,14 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-// ----> Comentário
-
-namespace SkinArt_Manager.DTOs
+namespace SkinArt_Manager.DTOs.ClienteDTO
 {
-    public class AtualizarClienteDTO
+    public class CriarClienteDTO
     {
-        [Required(ErrorMessage = "O ID do cliente é obrigatório.")]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "O nome completo é obrigatório.")]
         [MaxLength(255, ErrorMessage = "O nome completo não pode exceder 255 caracteres.")]
         public string NomeCompleto { get; set; } = string.Empty;

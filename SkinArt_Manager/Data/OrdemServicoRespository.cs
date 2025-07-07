@@ -7,9 +7,9 @@ namespace SkinArt_Manager.Data
 {
     public class OrdemServicoRespository(IConfiguration configuration)
     {
-        private readonly string _connectionString = configuration.GetConnectionString("DefaultParkingConnection");
+        private readonly string? _connectionString = configuration.GetConnectionString("DefaultParkingConnection");
 
-        public async Task<List<ListaOrdemServicoDTO>> GetOrdemServico(string ordem = null)
+        public async Task<List<ListaOrdemServicoDTO>> GetOrdemServico(string? ordem = null)
         {
             using var conn = new SqlConnection(_connectionString);
 

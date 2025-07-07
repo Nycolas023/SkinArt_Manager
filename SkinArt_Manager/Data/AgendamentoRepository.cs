@@ -1,13 +1,11 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.AgendamentoDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// ----> Comentário
 
 namespace SkinArt_Manager.Data
 {

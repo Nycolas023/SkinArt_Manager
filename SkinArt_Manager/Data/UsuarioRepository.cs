@@ -4,8 +4,6 @@ using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Models;
 using System.Data;
 
-// ----> Comentário
-
 namespace SkinArt_Manager.Data
 {
     public class UsuarioRepository(IConfiguration configuration)
@@ -21,7 +19,7 @@ namespace SkinArt_Manager.Data
             var response = await conn.QueryAsync<Usuario>(sql);
 
             if (!response.Any()) return null;
-
+            
             return response.ToList();
         }
 
@@ -139,6 +137,8 @@ namespace SkinArt_Manager.Data
 
         #endregion
 
+        #region Usuario
+
         public async Task<string> AtualizaUsuario(AtualizaUsuarioDTO usuario)
         {
             using var conn = new SqlConnection(_connectionString);
@@ -221,21 +221,6 @@ namespace SkinArt_Manager.Data
                 ULTIMO_LOGIN = primeiro.ULTIMO_LOGIN
             };
         }
-
+        #endregion
     }
 }
-
-
-
-//--EXEC STP_LOGIN 'joao.silva', 'senha123'
-//--EXEC STP_RETORNA_FUNCIONALIDADES_USUARIO 1
-//--EXEC STP_DELETA_USUARIO 2
-//--EXEC sp_atualizar_usuario 
-//--	@ID_USUARIO = 1,
-//--	@NOME_USUARIO = 'Carlos',
-//--	@SOBRENOME_USUARIO = 'Moraes',
-//--	@DATA_NASC_USUARIO = '1991-01-01',
-//--	@CPF_USUARIO = '123.456.789-00',
-//--	@RG_USUARIO = '12.345.678-9',
-//--	@LOGIN_USUARIO = 'carlos.m',
-//--	@SENHA_USUARIO = 'novasenha456';
