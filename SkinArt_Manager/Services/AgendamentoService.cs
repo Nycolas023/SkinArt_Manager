@@ -1,13 +1,8 @@
 ﻿using SkinArt_Manager.Data;
-using SkinArt_Manager.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SkinArt_Manager.DTOs.AgendamentoDTO;
 
 namespace SkinArt_Manager.Services
 {
-    // ----> Comentário
     public class AgendamentoService
     {
         private readonly AgendamentoRepository _agendamentoRepository;

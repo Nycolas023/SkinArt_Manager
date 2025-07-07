@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SkinArt_Manager.DTOs.FinanceiroDTO;
 using SkinArt_Manager.Services;
 
 namespace SkinArt_Manager.Controllers

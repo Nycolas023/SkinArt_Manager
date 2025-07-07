@@ -1,5 +1,5 @@
 ﻿using SkinArt_Manager.Data;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.EstoqueDTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

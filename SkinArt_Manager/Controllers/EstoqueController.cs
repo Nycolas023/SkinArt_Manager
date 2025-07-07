@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.EstoqueDTO;
 using SkinArt_Manager.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-// ----> Comentário
 
 [ApiController]
 [Route("api/[controller]")]

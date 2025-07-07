@@ -2,7 +2,6 @@
 {
     public class Usuario
     {
-        // ----> Comentário
         public int ID_USUARIO { get; set; }
         public string NOME_USUARIO { get; set; } = string.Empty;
         public string SOBRENOME_USUARIO { get; set; } = string.Empty;

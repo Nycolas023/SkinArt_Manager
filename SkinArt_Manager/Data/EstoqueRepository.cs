@@ -1,11 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using SkinArt_Manager.DTOs;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-// ----> Comentário
+using SkinArt_Manager.DTOs.EstoqueDTO;
 
 namespace SkinArt_Manager.Data
 {

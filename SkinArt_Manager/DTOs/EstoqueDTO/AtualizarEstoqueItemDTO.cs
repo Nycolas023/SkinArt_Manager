@@ -1,8 +1,8 @@
-﻿namespace SkinArt_Manager.DTOs
+﻿namespace SkinArt_Manager.DTOs.EstoqueDTO
 {
-    public class CriarEstoqueItemDTO
+    public class AtualizarEstoqueItemDTO
     {
-        // ----> Comentário
+        public int Id { get; set; }
         public string Categoria { get; set; }
         public string NomeItem { get; set; }
         public int Quantidade { get; set; }

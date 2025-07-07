@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SkinArt_Manager.DTOs.UsuarioDTO;
 using SkinArt_Manager.Services;
-
-// ----> Comentário
 
 [ApiController]
 [Route("api/[controller]")]
@@ -25,8 +22,8 @@ public class AuthController : ControllerBase
             credenciais.LOGIN_USUARIO.Equals(usuario.Usuario.LOGIN_USUARIO, StringComparison.OrdinalIgnoreCase) &&
             credenciais.SENHA_USUARIO == usuario.Usuario.SENHA_USUARIO)
         {
-            usuario.Token = TokenService.GenerateToken(usuario); // Armazena direto no DTO
-            return Ok(usuario);
+            usuario.Token = TokenService.GenerateToken(usuario);
+            return Ok();
         }
 
         return Unauthorized("Usuário ou senha inválidos");
@@ -41,18 +38,11 @@ public class AuthController : ControllerBase
             credenciais.LOGIN_USUARIO.Equals(usuario.Usuario.LOGIN_USUARIO, StringComparison.OrdinalIgnoreCase) &&
             credenciais.SENHA_USUARIO == usuario.Usuario.SENHA_USUARIO)
         {
-            usuario.Token = TokenService.GenerateToken(usuario); // Armazena direto no DTO
-            return Ok(usuario);
+            usuario.Token = TokenService.GenerateToken(usuario);
+            return Ok();
         }
 
         return Unauthorized("Usuário ou senha inválidos");
     }
 
-    [HttpGet("protegido")]
-    [Authorize]
-    public IActionResult Protegido()
-    {
-        var user = User.Identity.Name;
-        return Ok($"Bem-vindo, {user}!");
-    }
 }

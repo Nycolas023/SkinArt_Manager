@@ -1,8 +1,7 @@
-﻿namespace SkinArt_Manager.DTOs
+﻿namespace SkinArt_Manager.DTOs.AgendamentoDTO
 {
     public class TatuadorDropdownDTO
     {
-        // ----> Comentário
         public int Id { get; set; }
         public string NomeCompleto { get; set; }
     }

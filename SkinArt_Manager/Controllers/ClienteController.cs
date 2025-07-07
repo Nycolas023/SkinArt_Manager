@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SkinArt_Manager.DTOs;
+using SkinArt_Manager.DTOs.ClienteDTO;
 using SkinArt_Manager.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-// ----> Comentário
 
 [ApiController]
 [Route("api/[controller]")]
@@ -20,14 +16,14 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ClienteDTO>>> GetClientes([FromQuery] string? searchTerm = null)
+    public async Task<ActionResult<IEnumerable<ClienteBodyDTO>>> GetClientes([FromQuery] string? searchTerm = null)
     {
         var clientes = await _clienteService.GetAllClientes(searchTerm);
         return Ok(clientes);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ClienteDTO>> GetCliente(int id)
+    public async Task<ActionResult<ClienteBodyDTO>> GetCliente(int id)
     {
         var cliente = await _clienteService.GetClienteById(id);
         if (cliente == null)
@@ -39,7 +35,7 @@ public class ClienteController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<ClienteDTO>> AddCliente([FromBody] CriarClienteDTO newCliente)
+    public async Task<ActionResult<ClienteBodyDTO>> AddCliente([FromBody] CriarClienteDTO newCliente)
     {
         if (!ModelState.IsValid)
         {

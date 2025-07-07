@@ -1,11 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using SkinArt_Manager.DTOs;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-// ----> Comentário
+using SkinArt_Manager.DTOs.ClienteDTO;
 
 namespace SkinArt_Manager.Data
 {
@@ -18,7 +13,7 @@ namespace SkinArt_Manager.Data
             _connectionString = configuration.GetConnectionString("DefaultParkingConnection");
         }
 
-        public async Task<IEnumerable<ClienteDTO>> GetAllClientes(string? searchTerm = null)
+        public async Task<IEnumerable<ClienteBodyDTO>> GetAllClientes(string? searchTerm = null)
         {
             using var conn = new SqlConnection(_connectionString);
             string sql = "SELECT ID_CLIENTE AS Id, NOME_COMPLETO AS NomeCompleto, EMAIL AS Email, TELEFONE AS Telefone, DATA_NASCIMENTO AS DataNascimento, OBSERVACOES AS Observacoes FROM Cliente";
@@ -27,17 +22,17 @@ namespace SkinArt_Manager.Data
             {
                 sql += " WHERE NOME_COMPLETO LIKE @SearchTerm OR EMAIL LIKE @SearchTerm OR TELEFONE LIKE @SearchTerm";
                 searchTerm = $"%{searchTerm}%"; // Adiciona curingas para pesquisa "LIKE"
-                return await conn.QueryAsync<ClienteDTO>(sql, new { SearchTerm = searchTerm });
+                return await conn.QueryAsync<ClienteBodyDTO>(sql, new { SearchTerm = searchTerm });
             }
 
-            return await conn.QueryAsync<ClienteDTO>(sql);
+            return await conn.QueryAsync<ClienteBodyDTO>(sql);
         }
 
-        public async Task<ClienteDTO?> GetClienteById(int id)
+        public async Task<ClienteBodyDTO?> GetClienteById(int id)
         {
             using var conn = new SqlConnection(_connectionString);
             string sql = "SELECT ID_CLIENTE AS Id, NOME_COMPLETO AS NomeCompleto, EMAIL AS Email, TELEFONE AS Telefone, DATA_NASCIMENTO AS DataNascimento, OBSERVACOES AS Observacoes FROM Cliente WHERE ID_CLIENTE = @Id";
-            return await conn.QueryFirstOrDefaultAsync<ClienteDTO>(sql, new { Id = id });
+            return await conn.QueryFirstOrDefaultAsync<ClienteBodyDTO>(sql, new { Id = id });
         }
 
         public async Task<int> AddCliente(CriarClienteDTO newCliente)

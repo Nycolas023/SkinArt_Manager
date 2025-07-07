@@ -1,8 +1,6 @@
-﻿namespace SkinArt_Manager.DTOs
-{
-
-    // ----> Comentário
-    public class ClienteDTO
+﻿namespace SkinArt_Manager.DTOs.ClienteDTO
+{ 
+    public class ClienteBodyDTO
     {
         public int Id { get; set; }
         public string NomeCompleto { get; set; } = string.Empty;

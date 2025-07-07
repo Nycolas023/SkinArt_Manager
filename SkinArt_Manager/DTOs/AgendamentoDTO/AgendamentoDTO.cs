@@ -1,8 +1,6 @@
-﻿using System;
+﻿namespace SkinArt_Manager.DTOs.AgendamentoDTO
+{ 
 
-namespace SkinArt_Manager.DTOs
-{
-    // ----> Comentário
     public class AgendamentoDTO
     {
         public int Id { get; set; }

@@ -6,25 +6,21 @@ using SkinArt_Manager.Data;
 using SkinArt_Manager.Services;
 using System.Text;
 
-// ----> Comentário
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<UsuarioRepository>();
-builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<EstoqueRepository>();
-builder.Services.AddScoped<EstoqueService>();
 builder.Services.AddScoped<AgendamentoRepository>();
-builder.Services.AddScoped<AgendamentoService>();
 builder.Services.AddScoped<ClienteRepository>();
-builder.Services.AddScoped<ClienteService>();
-
 builder.Services.AddScoped<FinanceiroRepository>();
-builder.Services.AddScoped<FinanceiroService>();
-
 builder.Services.AddScoped<OrdemServicoRespository>();
-builder.Services.AddScoped<OrdemServicoService>();
 
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<EstoqueService>();
+builder.Services.AddScoped<AgendamentoService>();
+builder.Services.AddScoped<ClienteService>();
+builder.Services.AddScoped<FinanceiroService>();
+builder.Services.AddScoped<OrdemServicoService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

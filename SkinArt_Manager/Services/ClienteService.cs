@@ -1,11 +1,8 @@
 ﻿using SkinArt_Manager.Data;
-using SkinArt_Manager.DTOs;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using SkinArt_Manager.DTOs.ClienteDTO;
 
 namespace SkinArt_Manager.Services
 {
-    // ----> Comentário
     public class ClienteService
     {
         private readonly ClienteRepository _clienteRepository;
@@ -15,12 +12,12 @@ namespace SkinArt_Manager.Services
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<IEnumerable<ClienteDTO>> GetAllClientes(string? searchTerm = null)
+        public async Task<IEnumerable<ClienteBodyDTO>> GetAllClientes(string? searchTerm = null)
         {
             return await _clienteRepository.GetAllClientes(searchTerm);
         }
 
-        public async Task<ClienteDTO?> GetClienteById(int id)
+        public async Task<ClienteBodyDTO?> GetClienteById(int id)
         {
             return await _clienteRepository.GetClienteById(id);
         }

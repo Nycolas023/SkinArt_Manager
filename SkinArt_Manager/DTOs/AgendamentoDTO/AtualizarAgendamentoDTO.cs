@@ -1,11 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SkinArt_Manager.DTOs
+namespace SkinArt_Manager.DTOs.AgendamentoDTO
 {
-    // ----> Comentário
-    public class CriarAgendamentoDTO
+    public class AtualizarAgendamentoDTO
     {
+        [Required(ErrorMessage = "O ID do agendamento é obrigatório.")]
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "O cliente é obrigatório.")]
         public int IdCliente { get; set; }
 

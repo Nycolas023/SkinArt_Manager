@@ -1,8 +1,7 @@
-﻿namespace SkinArt_Manager.DTOs
+﻿namespace SkinArt_Manager.DTOs.AgendamentoDTO
 {
     public class StatusAgendamentoDTO
     {
-        // ----> Comentário
         public int Id { get; set; }
         public string Nome { get; set; }
     }
