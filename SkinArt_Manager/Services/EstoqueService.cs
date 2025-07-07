@@ -49,5 +49,10 @@ namespace SkinArt_Manager.Services
         {
             return await _estoqueRepository.DeleteItemEstoque(id);
         }
+
+        public async Task<IEnumerable<string>> GetCategorias()
+        {
+            return await _estoqueRepository.GetCategorias();
+        }
     }
 }

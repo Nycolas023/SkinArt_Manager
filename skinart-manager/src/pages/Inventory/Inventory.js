@@ -1,62 +1,14 @@
-import React, { useState } from 'react';
-import { FiEdit, FiTrash2, FiX, FiSave } from 'react-icons/fi';
+import React, { useState, useEffect } from 'react';
+import { FiEdit, FiTrash2, FiX, FiSave, FiPlus } from 'react-icons/fi';
 import './Inventory.css';
 
 function Inventory() {
-  const [inventory, setInventory] = useState([
-    // Equipamentos Principais
-    { id: 1, category: 'Equipamentos', name: 'Máq de Tatuagem (Coil)', quantity: 2, minStock: 1, unit: 'un', usagePerSession: 0 },
-    { id: 2, category: 'Equipamentos', name: 'Máq de Tatuagem (Rot)', quantity: 2, minStock: 1, unit: 'un', usagePerSession: 0 },
-    { id: 3, category: 'Equipamentos', name: 'Fonte de Alimentação', quantity: 2, minStock: 1, unit: 'un', usagePerSession: 0 },
-    { id: 4, category: 'Equipamentos', name: 'Pedal', quantity: 2, minStock: 1, unit: 'un', usagePerSession: 0 },
-    { id: 5, category: 'Equipamentos', name: 'Cabos de Conexão', quantity: 4, minStock: 2, unit: 'un', usagePerSession: 0 },
-
-    // Agulhas (Liners e Shaders)
-    { id: 6, category: 'Agulhas', name: 'Agulha Round Liner #3', quantity: 20, minStock: 10, unit: 'un', usagePerSession: 1 },
-    { id: 7, category: 'Agulhas', name: 'Agulha Round Liner #5', quantity: 20, minStock: 10, unit: 'un', usagePerSession: 1 },
-    { id: 8, category: 'Agulhas', name: 'Agulha Round Liner #7', quantity: 15, minStock: 8, unit: 'un', usagePerSession: 1 },
-    { id: 9, category: 'Agulhas', name: 'Agulha Round Shader #7', quantity: 15, minStock: 8, unit: 'un', usagePerSession: 1 },
-    { id: 10, category: 'Agulhas', name: 'Agulha Magnum #9', quantity: 15, minStock: 8, unit: 'un', usagePerSession: 1 },
-    { id: 11, category: 'Agulhas', name: 'Agulha Curved Magnum #11', quantity: 10, minStock: 5, unit: 'un', usagePerSession: 1 },
-
-    // Hastes e Acessórios
-    { id: 12, category: 'Acessórios', name: 'Hastes (Grips) Descartáveis', quantity: 50, minStock: 30, unit: 'un', usagePerSession: 1 },
-    { id: 13, category: 'Acessórios', name: 'Tubos (Tips) Descartáveis', quantity: 50, minStock: 30, unit: 'un', usagePerSession: 1 },
-
-    // Tintas (Cores Básicas)
-    { id: 14, category: 'Tintas', name: 'Tinta Preta', quantity: 500, minStock: 100, unit: 'ml', usagePerSession: 5 },
-    { id: 15, category: 'Tintas', name: 'Tinta Branca', quantity: 500, minStock: 100, unit: 'ml', usagePerSession: 5 },
-    { id: 16, category: 'Tintas', name: 'Tinta Vermelha', quantity: 500, minStock: 100, unit: 'ml', usagePerSession: 5 },
-    { id: 17, category: 'Tintas', name: 'Tinta Azul', quantity: 500, minStock: 100, unit: 'ml', usagePerSession: 5 },
-    { id: 18, category: 'Tintas', name: 'Tinta Amarela', quantity: 500, minStock: 100, unit: 'ml', usagePerSession: 5 },
-    { id: 19, category: 'Tintas', name: 'Tinta Verde', quantity: 500, minStock: 100, unit: 'ml', usagePerSession: 5 },
-
-    // Materiais Descartáveis
-    { id: 20, category: 'Descartáveis', name: 'Luvas de Nitrila (P)', quantity: 100, minStock: 50, unit: 'par', usagePerSession: 1 },
-    { id: 21, category: 'Descartáveis', name: 'Luvas de Nitrila (M)', quantity: 100, minStock: 50, unit: 'par', usagePerSession: 1 },
-    { id: 22, category: 'Descartáveis', name: 'Campos Descartáveis', quantity: 50, minStock: 30, unit: 'un', usagePerSession: 2 },
-    { id: 23, category: 'Descartáveis', name: 'Vasilhas de Tinta (Cups)', quantity: 100, minStock: 50, unit: 'un', usagePerSession: 3 },
-    { id: 24, category: 'Descartáveis', name: 'Lâminas de Barbear', quantity: 50, minStock: 30, unit: 'un', usagePerSession: 1 },
-
-    // Preparação da Pele
-    { id: 25, category: 'Preparação', name: 'Clorexidina 2%', quantity: 3000, minStock: 500, unit: 'ml', usagePerSession: 10 },
-    { id: 26, category: 'Preparação', name: 'Gel de Barbear', quantity: 1000, minStock: 200, unit: 'ml', usagePerSession: 15 },
-    { id: 27, category: 'Preparação', name: 'Stencil Transfer', quantity: 150, minStock: 50, unit: 'folhas', usagePerSession: 1 },
-    { id: 28, category: 'Preparação', name: 'Papel Toalha', quantity: 1.5, minStock: 2, unit: 'rolo', usagePerSession: 0.1 },
-
-    // Pós-Tatuagem
-    { id: 29, category: 'Pós-Tatuagem', name: 'Filme Transparente (Rolo)', quantity: 5, minStock: 2, unit: 'rolo', usagePerSession: 0.03 },
-    { id: 30, category: 'Pós-Tatuagem', name: 'Bepantol Derma', quantity: 5, minStock: 2, unit: 'g', usagePerSession: 5 },
-
-    // Limpeza
-    { id: 31, category: 'Limpeza', name: 'Álcool 70% (500ml)', quantity: 5000, minStock: 1000, unit: 'ml', usagePerSession: 50 },
-    { id: 32, category: 'Limpeza', name: 'Desinfetante Hospitalar', quantity: 3000, minStock: 500, unit: 'ml', usagePerSession: 100 },
-    { id: 33, category: 'Limpeza', name: 'Sacos para Lixo Infectante', quantity: 50, minStock: 10, unit: 'un', usagePerSession: 1 }
-  ]);
-
+  const [inventory, setInventory] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [showLowStock, setShowLowStock] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [editingItem, setEditingItem] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -66,22 +18,62 @@ function Inventory() {
     usagePerSession: 0
   });
 
-  // Extrai categorias únicas dos itens
-  const categories = ['Todos', ...new Set(inventory.map(item => item.category))];
+  // Buscar estoque e categorias ao carregar
+  useEffect(() => {
+    fetch('/api/estoque')
+      .then(res => res.json())
+      .then(data => setInventory(
+        data.map(item => ({
+          id: item.Id ?? item.id,
+          name: item.NomeItem ?? item.nomeItem ?? item.name,
+          category: item.Categoria ?? item.categoria ?? item.category,
+          quantity: item.Quantidade ?? item.quantidade ?? item.quantity,
+          minStock: item.EstoqueMinimo ?? item.estoqueMinimo ?? item.minStock,
+          unit: item.Unidade ?? item.unidade ?? item.unit,
+          usagePerSession: item.UsoPorSessao ?? item.usoPorSessao ?? item.usagePerSession
+        }))
+      ))
+      .catch(() => setInventory([]));
+
+    fetch('/api/estoque/categorias')
+      .then(res => res.json())
+      .then(data => setCategories(data))
+      .catch(() => setCategories([]));
+  }, []);
+
+  // Atualiza lista de estoque após adicionar item
+  const refreshInventory = () => {
+    fetch('/api/estoque')
+      .then(res => res.json())
+      .then(data => setInventory(
+        data.map(item => ({
+          id: item.Id ?? item.id,
+          name: item.NomeItem ?? item.nomeItem ?? item.name,
+          category: item.Categoria ?? item.categoria ?? item.category,
+          quantity: item.Quantidade ?? item.quantidade ?? item.quantity,
+          minStock: item.EstoqueMinimo ?? item.estoqueMinimo ?? item.minStock,
+          unit: item.Unidade ?? item.unidade ?? item.unit,
+          usagePerSession: item.UsoPorSessao ?? item.usoPorSessao ?? item.usagePerSession
+        }))
+      ));
+    fetch('/api/estoque/categorias')
+      .then(res => res.json())
+      .then(data => setCategories(data));
+  };
 
   const filteredInventory = inventory.filter(item => {
-    const matchesCategory = selectedCategory === 'Todos' || item.category === selectedCategory;
-    const matchesStock = !showLowStock || item.quantity <= item.minStock;
-    return matchesCategory && matchesStock;
+    // Filtro por categoria
+    const categoryMatch = selectedCategory === 'Todos' || item.category === selectedCategory;
+    // Filtro por baixo estoque
+    const lowStockMatch = !showLowStock || item.quantity <= item.minStock;
+    return categoryMatch && lowStockMatch;
   });
 
-  // Calcula sessões restantes baseado no estoque
   const calculateSessionsLeft = (item) => {
     if (item.usagePerSession <= 0) return 'N/A';
     return Math.floor(item.quantity / item.usagePerSession);
   };
 
-  // Função para abrir o modal de edição
   const handleEdit = (id) => {
     const itemToEdit = inventory.find(item => item.id === id);
     setEditingItem(itemToEdit);
@@ -95,37 +87,101 @@ function Inventory() {
     });
   };
 
-  // Função para fechar o modal
   const handleCloseModal = () => {
     setEditingItem(null);
+    setShowAddModal(false);
   };
 
-  // Função para atualizar os dados do formulário
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === 'quantity' || name === 'minStock' || name === 'usagePerSession' 
-        ? Number(value) 
+      [name]: name === 'quantity' || name === 'minStock' || name === 'usagePerSession'
+        ? Number(value)
         : value
     });
   };
 
-  // Função para salvar as alterações
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    const updatedInventory = inventory.map(item => 
-      item.id === editingItem.id ? { ...item, ...formData } : item
-    );
-    setInventory(updatedInventory);
-    handleCloseModal();
+    try {
+      const dto = {
+        Id: editingItem.id,
+        Categoria: formData.category,
+        NomeItem: formData.name,
+        Quantidade: formData.quantity,
+        Unidade: formData.unit,
+        UsoPorSessao: formData.usagePerSession,
+        EstoqueMinimo: formData.minStock
+      };
+      const response = await fetch(`/api/estoque/${editingItem.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        body: JSON.stringify(dto)
+      });
+      if (response.ok) {
+        refreshInventory();
+        handleCloseModal();
+      } else {
+        const error = await response.text();
+        alert('Erro ao salvar item: ' + error);
+      }
+    } catch (err) {
+      alert('Erro ao salvar item.');
+    }
   };
 
-  // Função para deletar item
-  const handleDelete = (id) => {
-    if (window.confirm('Tem certeza que deseja remover este item permanentemente?')) {
-      setInventory(inventory.filter(item => item.id !== id));
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    const dto = {
+      Categoria: formData.category,
+      NomeItem: formData.name,
+      Quantidade: formData.quantity,
+      Unidade: formData.unit,
+      UsoPorSessao: formData.usagePerSession,
+      EstoqueMinimo: formData.minStock
+    };
+    try {
+      const response = await fetch('/api/estoque', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        body: JSON.stringify(dto)
+      });
+      if (response.ok) {
+        refreshInventory();
+        handleCloseModal();
+      } else {
+        const error = await response.text();
+        alert('Erro ao adicionar item: ' + error);
+      }
+    } catch (err) {
+      alert('Erro ao adicionar item.');
     }
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Tem certeza que deseja remover este item permanentemente?')) {
+      try {
+        const response = await fetch(`/api/estoque/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } });
+        if (response.ok) {
+          refreshInventory();
+        }
+      } catch (err) {
+        alert('Erro ao remover item.');
+      }
+    }
+  };
+
+  const openAddModal = () => {
+    setFormData({
+      name: '',
+      category: '',
+      quantity: 0,
+      minStock: 0,
+      unit: 'un',
+      usagePerSession: 0
+    });
+    setShowAddModal(true);
   };
 
   return (
@@ -133,25 +189,26 @@ function Inventory() {
       <div className="inventory-header">
         <h2>Controle de Estoque</h2>
         <div className="inventory-controls">
-          <select 
+          <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="category-select"
           >
+            <option value="Todos">Todos</option>
             {categories.map(category => (
               <option key={category} value={category}>{category}</option>
             ))}
           </select>
-          
-          <button 
+
+          <button
             className={`btn ${showLowStock ? 'btn-primary' : 'btn-secondary'}`}
             onClick={() => setShowLowStock(!showLowStock)}
           >
             {showLowStock ? 'Mostrar Todos' : 'Mostrar Baixo Estoque'}
           </button>
-          
-          <button className="btn btn-success">
-            + Adicionar Item
+
+          <button className="btn btn-success" onClick={openAddModal}>
+            <FiPlus className="icon" /> + Adicionar Item
           </button>
         </div>
       </div>
@@ -182,19 +239,19 @@ function Inventory() {
                 <td>{calculateSessionsLeft(item)}</td>
                 <td>{item.minStock}</td>
                 <td>
-                  {item.quantity <= item.minStock 
+                  {item.quantity <= item.minStock
                     ? <span className="badge-warning">Repor</span>
                     : <span className="badge-success">OK</span>}
                 </td>
                 <td className="actions">
-                  <button 
+                  <button
                     className="btn-edit"
                     onClick={() => handleEdit(item.id)}
                     title="Editar item"
                   >
                     <FiEdit className="icon" />
                   </button>
-                  <button 
+                  <button
                     className="btn-delete"
                     onClick={() => handleDelete(item.id)}
                     title="Remover item"
@@ -218,7 +275,6 @@ function Inventory() {
                 <FiX />
               </button>
             </div>
-            
             <form onSubmit={handleSave}>
               <div className="form-group">
                 <label>Nome:</label>
@@ -230,21 +286,23 @@ function Inventory() {
                   required
                 />
               </div>
-
               <div className="form-group">
                 <label>Categoria:</label>
-                <select
+                <input
+                  type="text"
                   name="category"
+                  list="category-list"
                   value={formData.category}
                   onChange={handleInputChange}
                   required
-                >
-                  {categories.filter(cat => cat !== 'Todos').map(category => (
-                    <option key={category} value={category}>{category}</option>
+                  autoComplete="off"
+                />
+                <datalist id="category-list">
+                  {categories.map(category => (
+                    <option key={category} value={category} />
                   ))}
-                </select>
+                </datalist>
               </div>
-
               <div className="form-row">
                 <div className="form-group">
                   <label>Quantidade:</label>
@@ -257,7 +315,6 @@ function Inventory() {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label>Unidade:</label>
                   <select
@@ -276,7 +333,6 @@ function Inventory() {
                   </select>
                 </div>
               </div>
-
               <div className="form-row">
                 <div className="form-group">
                   <label>Estoque Mínimo:</label>
@@ -289,7 +345,6 @@ function Inventory() {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label>Uso por Sessão:</label>
                   <input
@@ -303,13 +358,118 @@ function Inventory() {
                   />
                 </div>
               </div>
-
               <div className="modal-actions">
                 <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
                   Cancelar
                 </button>
                 <button type="submit" className="btn btn-primary">
                   <FiSave className="icon" /> Salvar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Adição */}
+      {showAddModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h3>Novo Item de Estoque</h3>
+              <button className="close-btn" onClick={handleCloseModal}>
+                <FiX />
+              </button>
+            </div>
+            <form onSubmit={handleAdd}>
+              <div className="form-group">
+                <label>Nome:</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Categoria:</label>
+                <input
+                  type="text"
+                  name="category"
+                  list="category-list"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  required
+                  autoComplete="off"
+                />
+                <datalist id="category-list">
+                  {categories.map(category => (
+                    <option key={category} value={category} />
+                  ))}
+                </datalist>
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Quantidade:</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={formData.quantity}
+                    onChange={handleInputChange}
+                    min="0"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Unidade:</label>
+                  <select
+                    name="unit"
+                    value={formData.unit}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="un">Unidade</option>
+                    <option value="ml">Mililitro (ml)</option>
+                    <option value="g">Grama (g)</option>
+                    <option value="par">Par</option>
+                    <option value="folhas">Folhas</option>
+                    <option value="rolo">Rolo</option>
+                    <option value="m">Metro (m)</option>
+                  </select>
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Estoque Mínimo:</label>
+                  <input
+                    type="number"
+                    name="minStock"
+                    value={formData.minStock}
+                    onChange={handleInputChange}
+                    min="0"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Uso por Sessão:</label>
+                  <input
+                    type="number"
+                    name="usagePerSession"
+                    value={formData.usagePerSession}
+                    onChange={handleInputChange}
+                    min="0"
+                    step="0.1"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="modal-actions">
+                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+                  Cancelar
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  <FiSave className="icon" /> Adicionar
                 </button>
               </div>
             </form>

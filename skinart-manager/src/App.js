@@ -1,84 +1,120 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import './App.css';
-
-// Componentes
+import { AuthProvider, useAuth } from './hooks/useAuth';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Auth/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ClientManagement from './pages/Clients/ClientManagement';
+import ProtectedLayout from './components/Layout/ProtectedLayout';
 import Scheduling from './pages/Scheduling/Scheduling';
+import UserManagement from './pages/Users/UserManagement';
+import ServiceOrders from './pages/ServiceOrders/ServiceOrders';
+import Sidebar from './components/Sidebar/Sidebar';
 import Financial from './pages/Financial/Financial';
 import Portfolio from './pages/Portfolio/Portfolio';
 import Inventory from './pages/Inventory/Inventory';
-import ServiceOrders from './pages/ServiceOrders/ServiceOrders';
-import UserManagement from './pages/Users/UserManagement';
-import Sidebar from './components/Sidebar/Sidebar';
-import Header from './components/Header/Header';
 
-function App() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [userRole, setUserRole] = useState('');
+function AppContent() {
+  const { user, login } = useAuth();
 
-  const handleLogin = (role) => {
-    setAuthenticated(true);
-    setUserRole(role);
-  };
-
-  const handleLogout = () => {
-    setAuthenticated(false);
-    setUserRole('');
-  };
+  useEffect(() => {
+    console.log("Estado de autenticação:", !!user);
+  }, [user]);
 
   return (
-    <Router>
-      <div className="app">
-        {authenticated && <Sidebar userRole={userRole} onLogout={handleLogout} />}
-        <div className="main-content">
-          {authenticated && <Header />}
-          <Routes>
-            <Route 
-              path="/" 
-              element={authenticated ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />} 
-            />
-            <Route 
-              path="/dashboard" 
-              element={authenticated ? <Dashboard userRole={userRole} /> : <Navigate to="/" />} 
-            />
-            <Route 
-              path="/clientes" 
-              element={authenticated ? <ClientManagement userRole={userRole} /> : <Navigate to="/" />} 
-            />
-            <Route 
-              path="/agendamentos" 
-              element={authenticated ? <Scheduling userRole={userRole} /> : <Navigate to="/" />} 
-            />
-            <Route 
-              path="/financeiro" 
-              element={authenticated && (userRole === 'admin' || userRole === 'recepcao') ? 
-                <Financial userRole={userRole} /> : <Navigate to="/dashboard" />} 
-            />
-            <Route 
-              path="/portfolio" 
-              element={authenticated ? <Portfolio /> : <Navigate to="/" />} 
-            />
-            <Route 
-              path="/estoque" 
-              element={authenticated && (userRole === 'admin' || userRole === 'recepcao') ? 
-                <Inventory /> : <Navigate to="/dashboard" />} 
-            />
-            <Route 
-              path="/ordens-servico" 
-              element={authenticated ? <ServiceOrders userRole={userRole} /> : <Navigate to="/" />} 
-            />
-            <Route 
-              path="/usuarios" 
-              element={authenticated && userRole === 'admin' ? 
-                <UserManagement /> : <Navigate to="/dashboard" />} 
-            />
-          </Routes>
+    <div className="main-content">
+      {user && <Sidebar />}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            user ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Login onLogin={(token, usuario) => {
+                login(token, usuario);
+              }} />
+            )
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            user ? (
+              <ProtectedLayout>
+                <Dashboard />
+              </ProtectedLayout>
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        <Route
+          path="/clientes"
+          element={
+            user ? (
+              <ProtectedLayout>
+                <ClientManagement />
+              </ProtectedLayout>
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        <Route
+          path="/agendamentos"
+          element={
+            user ? (
+              <ProtectedLayout>
+                <Scheduling userRole={user?.papel || user?.role} />
+              </ProtectedLayout>
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        <Route
+          path="/usuarios"
+          element={
+            user ? (
+              <ProtectedLayout>
+                <UserManagement />
+              </ProtectedLayout>
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        <Route
+          path="/ordens-servico"
+          element={
+            user ? (
+              <ProtectedLayout>
+                <ServiceOrders />
+              </ProtectedLayout>
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        <Route path="/financeiro" element={<Financial />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/estoque" element={<Inventory />} />
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+      </Routes>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <div className="app">
+          <AppContent />
         </div>
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 

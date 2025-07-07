@@ -83,5 +83,12 @@ namespace SkinArt_Manager.Data
             var affectedRows = await conn.ExecuteAsync(sql, new { Id = id });
             return affectedRows > 0;
         }
+
+        public async Task<IEnumerable<string>> GetCategorias()
+        {
+            using var conn = new SqlConnection(_connectionString);
+            string sql = "SELECT DISTINCT Categoria FROM EstoqueItem";
+            return await conn.QueryAsync<string>(sql);
+        }
     }
 }

@@ -49,6 +49,9 @@ public class AgendamentoController : ControllerBase
 
         try
         {
+            Console.WriteLine($"Recebido: {System.Text.Json.JsonSerializer.Serialize(newAgendamento)}");
+
+            // Validação já é feita no service!
             var newId = await _agendamentoService.AddAgendamento(newAgendamento);
             if (newId > 0)
             {
@@ -65,8 +68,9 @@ public class AgendamentoController : ControllerBase
         {
             return Conflict(ex.Message);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Console.WriteLine("ERRO AO ADICIONAR AGENDAMENTO: " + ex.ToString());
             return StatusCode(500, "Ocorreu um erro interno ao adicionar o agendamento.");
         }
     }

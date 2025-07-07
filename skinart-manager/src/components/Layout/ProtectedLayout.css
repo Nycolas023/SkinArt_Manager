@@ -1,0 +1,58 @@
+/* skinart-manager/src/components/Layout/ProtectedLayout.css */
+
+/* Estrutura base do layout */
+.protected-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar corrigida - topo não cortado e altura completa */
+.sidebar {
+  flex-shrink: 0;
+  width: 220px; /* Um pouco menor para dar mais espaço ao dashboard */
+  height: 100vh;
+  position: fixed;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+/* Conteúdo principal - mais espaço horizontal */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: #f5f6fa;
+  min-height: 100vh;
+  overflow-y: auto;
+  width: calc(100% - 220px); /* Garante que ocupe o restante do espaço */
+  box-sizing: border-box;
+  margin-left: 220px;
+}
+
+/* Media query para telas menores */
+@media (max-width: 1366px) {
+  .protected-layout {
+    font-size: 0.85rem;
+  }
+  
+  .sidebar {
+    width: 200px;
+  }
+  
+  .main-content {
+    padding: 16px 12px;
+  }
+}
+
+/* Ajustes para telas maiores */
+@media (min-width: 1400px) {
+  .main-content {
+    padding: 24px 32px; /* Mais padding em telas maiores */
+  }
+}

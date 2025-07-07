@@ -43,6 +43,13 @@ public class EstoqueController : ControllerBase
         return Ok(item);
     }
 
+    [HttpGet("categorias")]
+    public async Task<ActionResult<IEnumerable<string>>> GetCategorias()
+    {
+        var categorias = await _estoqueService.GetCategorias();
+        return Ok(categorias);
+    }
+
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<EstoqueItemDTO>> AddEstoqueItem([FromBody] CriarEstoqueItemDTO newItem)
