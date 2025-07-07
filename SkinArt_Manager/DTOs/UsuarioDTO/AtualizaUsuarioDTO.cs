@@ -12,9 +12,5 @@
         public string RG_USUARIO { get; set; } = string.Empty;
         public string LOGIN_USUARIO { get; set; } = string.Empty;
         public string SENHA_USUARIO { get; set; } = string.Empty;
-
-        // Propriedades que estavam faltando
-        public string STATUS_USUARIO { get; set; } = string.Empty;
-        public string ROLE_USUARIO { get; set; } = string.Empty;
     }
 }

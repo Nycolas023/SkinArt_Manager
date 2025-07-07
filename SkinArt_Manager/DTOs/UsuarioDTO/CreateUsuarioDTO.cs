@@ -11,7 +11,5 @@
         public string RG_USUARIO { get; set; } = string.Empty;
         public string LOGIN_USUARIO { get; set; } = string.Empty;
         public string SENHA_USUARIO { get; set; } = string.Empty;
-        public string? DESCRICAO_TATUADOR { get; set; }
-        public string? CNAE_FORMACAO_TATUADOR { get; set; }
     }
 }

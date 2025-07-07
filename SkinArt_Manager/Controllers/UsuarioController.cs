@@ -27,20 +27,13 @@ namespace SkinArt_Manager.Controllers
 
         [Authorize]
         [HttpPost("CriaUsuario")]
-        public async Task<IActionResult> CriaUsuario([FromBody] CreateUsuarioDTO usuario)
-        {
-            // Adicionando o tipo de usuário diretamente no DTO antes de chamar o método
-            usuario.DESCRICAO_TATUADOR = "Tatuador";
+        public async Task<IActionResult> CriarUsuario([FromBody] CreateUsuarioDTO usuario)
+        { 
+            var response = await usuarioService.CreateUsuario(usuario);
 
-            var novoUsuario = await usuarioService.CreateUsuario(usuario);
-            // ...
-
-            if (novoUsuario != null)
-            {
-                return Ok(novoUsuario);
-            }
-
-            return BadRequest("Falha ao criar usuário");
+            if (response == null)
+                return BadRequest("Erro ao criar usuário.");
+            return Ok(response);
         }
 
         [Authorize]
@@ -90,18 +83,12 @@ namespace SkinArt_Manager.Controllers
         [HttpDelete("DeletaUsuario")]
         public async Task<IActionResult> DeletaUsuario(int idUsuario)
         {
-            DeleteUsuarioDTO usuario = new()
-            {
-                ID_USUARIO = idUsuario
-            };
+            DeleteUsuarioDTO usuario = new();
 
             var response = await usuarioService.DeleteUsuario(usuario);
 
-            if (response == null || !response.Contains("sucesso"))
-            {
-                return NotFound("Usuário não encontrado ou falha ao deletar.");
-            }
-            
+            if (response == null)
+                return NotFound();
             return Ok(response);
         }
     }

@@ -7,8 +7,5 @@
         public string DESCRICAO_SERVICO { get; set; } = string.Empty;
         public decimal VALOR { get; set; }
         public string STATUS_SERVICO { get; set; } = string.Empty;
-        public decimal? COMISSAO { get; set; } // Adicionado
-        public string? METODO_PAGAMENTO { get; set; } // Adicionado
-        public string? OBSERVACOES { get; set; } // Adicionado
     }
 }
